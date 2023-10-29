@@ -49,6 +49,8 @@ const Title = styled.div`
   font-weight: bold;
 `;
 
+const AddPraise = styled.div``;
+
 export default function Room() {
   const { roomId } = useParams<RouteParams>();
 
@@ -69,6 +71,7 @@ export default function Room() {
       <Header />
       <Container>
         <Title> {roomInfo.roomName} </Title>
+        <AddPraise > + 기도제목 추가 </AddPraise>
       </Container>
     </>
   );

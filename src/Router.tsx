@@ -1,12 +1,14 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import Main from './routes/Main';
-import { useRecoilValue } from 'recoil';
+/** @format */
 
-import { IsLoginState } from './store/atom';
-import Login from './routes/Login';
-import styled from 'styled-components';
-import Room from './routes/Room';
+import React from "react";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import Main from "./routes/Main";
+import { useRecoilValue } from "recoil";
+
+import { IsLoginState } from "./store/atom";
+import Login from "./routes/Login";
+import styled from "styled-components";
+import Room from "./routes/Room";
 
 const Page = styled.div`
   display: flex;
