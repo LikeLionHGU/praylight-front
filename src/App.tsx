@@ -1,11 +1,11 @@
-import { ThemeProvider } from '@mui/material/styles';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { createGlobalStyle } from 'styled-components';
-import Router from './Router';
-import theme from './theme';
-import { RecoilRoot } from 'recoil';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ThemeProvider } from "@mui/material/styles";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { createGlobalStyle } from "styled-components";
+import Router from "./Router";
+import theme from "./theme";
+import { RecoilRoot } from "recoil";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
@@ -40,6 +40,8 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
+  background-color: black;
+  color: white;
 }
 menu, ol, ul {
   list-style: none;
@@ -77,9 +79,9 @@ function App() {
             <GoogleOAuthProvider
               clientId={process.env.REACT_APP_CLIENT_ID as any}
             >
-            <GlobalStyle />
-            <Router />
-            <ReactQueryDevtools initialIsOpen={true} />
+              <GlobalStyle />
+              <Router />
+              <ReactQueryDevtools initialIsOpen={true} />
             </GoogleOAuthProvider>
           </ThemeProvider>
         </RecoilRoot>

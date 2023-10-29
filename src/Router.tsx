@@ -1,5 +1,3 @@
-/** @format */
-
 import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Main from "./routes/Main";
@@ -20,7 +18,7 @@ const Center = styled.div`
   max-width: 100vw;
   min-width: 390px;
   height: 100vh;
-  background-color: white;
+  background-color: black;
 `;
 
 function Router() {

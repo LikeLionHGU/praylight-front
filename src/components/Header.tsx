@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { GoHomeFill } from 'react-icons/go';
-import { FaPrayingHands } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { FaPrayingHands } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100%;
   height: 60px;
-  background-color: white;
+  background-color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,10 +28,11 @@ export default function Header() {
       <Container>
         {/* <Logo src="https://cdn.logo.com/hotlink-ok/logo-social.png" /> */}
         <Link to="/">
-          <FaPrayingHands size={'30px'} />
+          <FaPrayingHands size={"30px"} />
         </Link>
         {/* <Icon /> */}
-        <GoHomeFill size={'30px'} />
+        {/* <GoHomeFill size={"30px"} /> */}
+        <GiHamburgerMenu size={"30px"} />
       </Container>
     </>
   );

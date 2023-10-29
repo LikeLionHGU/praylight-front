@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import FindRoom from './FindRoom';
-import AddRoom from './AddRoom';
+import styled from "styled-components";
+import FindRoom from "./FindRoom";
+import AddRoom from "./AddRoom";
 
 const Container = styled.div`
   width: 100%;

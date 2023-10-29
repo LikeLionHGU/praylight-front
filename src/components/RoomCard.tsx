@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import styled from "styled-components";
+import { useEffect, useState } from "react";
 
 interface Iroom {
   rId: number;
@@ -9,7 +9,7 @@ interface Iroom {
 }
 
 const Container = styled.div`
-  border: 1px solid black;
+  border: 1px solid white;
   border-radius: 8px;
   width: 100%;
   padding: 15px 10px;
@@ -34,7 +34,7 @@ const DateAgo = styled.div`
 `;
 
 export default function RoomCard({ room }: { room: Iroom }) {
-  const [formattedDate, setFormattedDate] = useState('');
+  const [formattedDate, setFormattedDate] = useState("");
 
   useEffect(() => {
     const createDate = new Date(room.createDate);
@@ -44,10 +44,10 @@ export default function RoomCard({ room }: { room: Iroom }) {
     const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
     const monthsAgo = Math.floor(daysAgo / 30);
 
-    let formattedDateStr = '';
+    let formattedDateStr = "";
 
     if (daysAgo === 0) {
-      formattedDateStr = '오늘';
+      formattedDateStr = "오늘";
     } else if (daysAgo <= 30) {
       formattedDateStr = `${daysAgo}일 전`;
     } else if (monthsAgo < 12) {
