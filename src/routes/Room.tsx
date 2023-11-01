@@ -8,6 +8,7 @@ import StarCalender from "../components/StarCalender";
 import PraiseCard from "../components/PraiseCard";
 import Light from "../components/Light";
 import AddPrayDialog from "../components/add-pray-dialog";
+import MemberListDialog from "../components/member-list-dialog";
 // import { useQuery } from 'react-query';ㄴ
 // import { getRoomInfo } from '../apis/apis';
 
@@ -218,7 +219,7 @@ export default function Room() {
           <Rows>
             <PrayNum>{roomInfo.praiseCount}개의 기도제목이 올라왔어요 </PrayNum>
             <Rows>
-              <IoPeopleCircleSharp size={"30px"} />
+              <MemberListDialog roomId={roomId} />
               <SlCalender size={"25px"} />
             </Rows>
           </Rows>
