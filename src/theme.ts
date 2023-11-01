@@ -1,44 +1,40 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface Palette {
     color: {
-      main: string;
-      mint: string;
-      darkblue: string;
-    };
-    mono: {
+      black: string;
+      yellow: string;
       white: string;
       gray1: string;
       gray2: string;
       gray3: string;
       gray4: string;
       gray5: string;
-      black: string;
+      gray6: string;
+      gray7: string;
     };
   }
 
   interface PaletteOptions {
-    color?: Palette['color'];
-    mono?: Palette['mono'];
+    color?: Palette["color"];
+    // mono?: Palette["mono"];
   }
 }
 
 const theme = createTheme({
   palette: {
     color: {
-      main: '#3964c3',
-      mint: '#7ed8b8',
-      darkblue: '#2e4b90',
-    },
-    mono: {
-        white: '#FFFFFF',
-        gray1: '#EFEFEF',
-        gray2: '#DDDDDD',
-      gray3: '#C1C1C1',
-      gray4: '#9B9B9B',
-      gray5: '#6D6D6D',
-      black: '#1A1C19',
+      black: "#000000",
+      yellow: "#FFCD29",
+      white: "#FFFFFF",
+      gray1: "#EFEFEF",
+      gray2: "#DDDDDD",
+      gray3: "#C0C0C0",
+      gray4: "#9B9B9B",
+      gray5: "#6C6C6C",
+      gray6: "#4E4E4E",
+      gray7: "#373737",
     },
   },
 });
