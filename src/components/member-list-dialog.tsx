@@ -124,6 +124,7 @@ export default function MemberListDialog({ roomId }: { roomId: string }) {
         style={{ width: "500px" }}
         wrapClassName="custom-modal"
         footer={null}
+        onCancel={handleClose}
       >
         <DialogTitle>기도방 참여 명단</DialogTitle>
         <DialogContent>
