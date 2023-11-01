@@ -6,6 +6,8 @@ import { IoPeopleCircleSharp } from "react-icons/io5";
 import { SlCalender } from "react-icons/sl";
 import StarCalender from "../components/StarCalender";
 import PraiseCard from "../components/PraiseCard";
+import Light from "../components/Light";
+import AddPrayDialog from "../components/add-pray-dialog";
 // import { useQuery } from 'react-query';ㄴ
 // import { getRoomInfo } from '../apis/apis';
 
@@ -14,6 +16,7 @@ const roomInfo = {
   roomPpl: 3,
   createDate: "2021-09-01",
   praiseCount: 5,
+  todayCount: 2,
   praises: [
     {
       date: "2021/10/29",
@@ -108,8 +111,7 @@ interface RouteParams {
 
 const Container = styled.div`
   width: 100%;
-  height: 90vh;
-  /* background-color: white; */
+  background-color: black;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -130,20 +132,9 @@ const Title = styled.div`
 `;
 
 const Ppl = styled.div`
-  color: ${theme.palette.mono.gray4};
+  color: ${theme.palette.color.gray4};
   font-size: 12px;
   padding: 10px 0px;
-`;
-
-const AddPraise = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 150px;
-  height: 40px;
-  border: 1px solid white;
-  border-radius: 18px;
-  font-size: 16px;
 `;
 
 const Counts = styled.div`
@@ -171,7 +162,7 @@ const DateDivider = styled.div`
   margin-bottom: 10px;
   position: relative;
   padding-left: 10%;
-  color: ${theme.palette.mono.gray3};
+  color: ${theme.palette.color.gray3};
 
   &:before,
   &:after {
@@ -179,7 +170,7 @@ const DateDivider = styled.div`
     position: absolute;
     top: 50%;
     height: 1px;
-    background-color: ${theme.palette.mono.gray3};
+    background-color: ${theme.palette.color.gray3};
   }
 
   &:before {
@@ -220,7 +211,8 @@ export default function Room() {
             <Title> {roomInfo.roomName} </Title>
             <Ppl> {roomInfo.roomPpl}명 참여 </Ppl>
           </div>
-          <AddPraise> 새 기도제목 작성 </AddPraise>
+          {/* <AddPraise> 새 기도제목 작성 </AddPraise> */}
+          <AddPrayDialog currentRoom="AAA" />
         </Top>
         <Counts>
           <Rows>
@@ -230,7 +222,7 @@ export default function Room() {
               <SlCalender size={"25px"} />
             </Rows>
           </Rows>
-          <StarCalender roomId={roomId} />
+          <Light ppl={roomInfo.todayCount} />
         </Counts>
         <Pray>
           {roomInfo.praises.map((day) => (
