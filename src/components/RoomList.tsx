@@ -49,7 +49,7 @@ interface Iroom {
 }
 
 const Container = styled.div`
-  /* background-color: white; */
+  background-color: black;
   min-height: 65vh;
   display: flex;
   flex-direction: column;
