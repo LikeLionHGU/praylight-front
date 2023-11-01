@@ -45,7 +45,6 @@ const GlobalStyle = createGlobalStyle`
     // 체크박스 자체의 색상도 변경하려면 여기에 추가합니다.
     .ant-checkbox-inner {
     
-      // 여기에 스타일을 추가하세요.
     }
   }
   .ant-checkbox-group {
@@ -157,7 +156,7 @@ export default function AddPrayDialog({
         onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
         style={{ width: "500px" }}
-        okText="작성"
+        okText="완료"
         cancelText="취소"
         wrapClassName="custom-modal"
       >
@@ -169,6 +168,7 @@ export default function AddPrayDialog({
             </DialogContentText>
             <Form.Item name="pray_content">
               <TextArea
+                placeholder="내용은 공백포함 150자까지 입력 가능합니다."
                 rows={4}
                 style={{ backgroundColor: theme.palette.color.gray1 }}
               />

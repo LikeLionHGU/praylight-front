@@ -3,13 +3,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
-import TextArea from "antd/es/input/TextArea";
-import { Checkbox, Form, InputNumber, Modal } from "antd";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
-import { CheckboxValueType } from "antd/es/checkbox/Group";
+import { Modal } from "antd";
+
 import theme from "../theme";
-import { IoPeopleCircleSharp } from "react-icons/io5";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import exitIcon from "../imgs/exitIcon.png";
 
 interface ImemberList {
@@ -103,19 +99,17 @@ export default function KickOutDialog({
       >
         <DialogTitle>{member.name}을 퇴장시키시겠습니까?</DialogTitle>
         <DialogContent>
-          <Form name="productUpload" onFinish={onSubmit}>
-            <DialogContentText
-              style={{
-                color: "white",
+          <DialogContentText
+            style={{
+              color: "white",
 
-                display: "flex",
-                alignContent: "center",
-                fontSize: "16px",
-              }}
-            >
-              {member.name}을 {roomName}에서 퇴장시키시겠습니까?
-            </DialogContentText>
-          </Form>
+              display: "flex",
+              alignContent: "center",
+              fontSize: "16px",
+            }}
+          >
+            {member.name}을 {roomName}에서 퇴장시키시겠습니까?
+          </DialogContentText>
         </DialogContent>
       </Modal>
     </React.Fragment>

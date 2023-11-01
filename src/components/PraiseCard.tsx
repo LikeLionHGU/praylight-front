@@ -4,8 +4,9 @@ import { useState } from "react";
 
 import prayOff from "../imgs/prayOff.png";
 import prayOn from "../imgs/prayOn.png";
-import editIcon from "../imgs/editIcon.png";
-import deleteIcon from "../imgs/deleteIcon.png";
+
+import EditPrayDialog from "./edit-pray-dialog";
+import DeletePrayDialog from "./delete-pray-dialog";
 
 const mine = {
   isMine: true,
@@ -72,8 +73,8 @@ export default function PraiseCard({ pray }: { pray: Pray }) {
         <Rows>
           {mine.isMine ? (
             <Btn>
-              <Icon src={editIcon} />
-              <Icon src={deleteIcon} />
+              <EditPrayDialog pray={pray} />
+              <DeletePrayDialog prayId={pray.pid} />
             </Btn>
           ) : (
             <div />

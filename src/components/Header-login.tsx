@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { FaPrayingHands } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
