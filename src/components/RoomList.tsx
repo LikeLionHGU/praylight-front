@@ -48,35 +48,6 @@ interface Iroom {
   createDate: string;
 }
 
-const Container = styled.div`
-  background-color: black;
-  min-height: 65vh;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-`;
-
-const Title = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-`;
-
-const Btns = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px 0px;
-`;
-const Btn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  padding: 10px 10px;
-  border: 1px solid white;
-  border-radius: 18px;
-`;
-
 const Rooms = styled.div`
   display: flex;
   flex-direction: column;
@@ -87,24 +58,13 @@ const Rooms = styled.div`
 export default function RoomList() {
   return (
     <>
-      <Container>
-        <Title> 나의 기도방 </Title>
-        <Btns>
-          <Btn>
-            <Link to="/addroom">새 기도방 짓기</Link>
-          </Btn>
-          <Btn>
-            <Link to="/findroom">기도방 들어가기</Link>
-          </Btn>
-        </Btns>
-        <Rooms>
-          {RoomInfo.map((room: Iroom) => (
-            <Link to={`/room/${room.rId}`}>
-              <RoomCard key={room?.rId} room={room} />
-            </Link>
-          ))}
-        </Rooms>
-      </Container>
+      <Rooms>
+        {RoomInfo.map((room: Iroom) => (
+          <Link to={`/room/${room.rId}`}>
+            <RoomCard key={room?.rId} room={room} />
+          </Link>
+        ))}
+      </Rooms>
     </>
   );
 }
