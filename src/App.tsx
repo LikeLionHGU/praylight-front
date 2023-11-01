@@ -6,6 +6,7 @@ import Router from "./Router";
 import theme from "./theme";
 import { RecoilRoot } from "recoil";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useEffect } from "react";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
@@ -40,7 +41,7 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
-  background-color: black;
+  background-color: gray;
   color: white;
 }
 menu, ol, ul {
@@ -66,11 +67,22 @@ a {
   text-decoration:none;
   color:inherit;
 }
+:root {
+       --vh: 100%;
+}
 `;
 
 const queryClient = new QueryClient();
 
 function App() {
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+  useEffect(() => {
+    setScreenSize();
+  });
+
   return (
     <>
       <QueryClientProvider client={queryClient}>
