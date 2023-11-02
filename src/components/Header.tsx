@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaPrayingHands } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import MenuDrawer from "./menu-drawer";
 
 const Container = styled.div`
   width: 100%;
@@ -20,7 +21,9 @@ const Container = styled.div`
 //   object-fit: cover;
 // `;
 
-// const Icon = styled.img``;
+const Icon = styled.img`
+  width: 20px;
+`;
 
 export default function Header() {
   return (
@@ -32,7 +35,7 @@ export default function Header() {
         </Link>
         {/* <Icon /> */}
         {/* <GoHomeFill size={"30px"} /> */}
-        <GiHamburgerMenu size={"30px"} />
+        <MenuDrawer />
       </Container>
     </>
   );
