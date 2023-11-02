@@ -2,7 +2,7 @@
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
 import { useHistory } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { IsLoginState } from "../store/atom";
 // import { useRecoilState, useSetRecoilState } from 'recoil';
 // import { IsLoginState, UserEmail } from '../store/atom';
