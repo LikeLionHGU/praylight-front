@@ -1,0 +1,89 @@
+import * as React from "react";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import styled, { createGlobalStyle } from "styled-components";
+import { Form, Modal } from "antd";
+import theme from "../theme";
+import { IoPeopleCircleSharp } from "react-icons/io5";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import KickOutDialog from "./kickOut-dialog";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { SlCalender } from "react-icons/sl";
+import { useHistory } from "react-router-dom";
+import { Dayjs } from "dayjs";
+
+const GlobalStyle = createGlobalStyle`
+  .custom-modal .ant-modal-content {
+    background-color: ${theme.palette.color.gray6}; // 모달의 배경색을 검정색으로 설정
+    color: white; // 모달의 글자색을 하얀색으로 설정
+  }
+
+  .custom-modal .ant-modal-footer .ant-btn-primary {
+    background-color: black; // 확인(submit) 버튼의 배경색을 회색으로 설정
+    border-color: white; // 확인(submit) 버튼의 테두리 색상을 회색으로 설정
+  }
+`;
+
+export default function CalendarDialog({ roomId }: { roomId: string }) {
+  const history = useHistory();
+  const [open, setOpen] = React.useState(false);
+  const [date, setDate] = React.useState<string | null>(null);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const onSubmit = (values: any) => {
+    console.log(date);
+    history.push(`/room/${roomId}/${date}`);
+    console.log(values);
+  };
+
+  return (
+    <React.Fragment>
+      <GlobalStyle />
+      <SlCalender onClick={handleClickOpen} size={"25px"} />
+      <Modal
+        open={open}
+        centered
+        style={{ width: "100%" }}
+        wrapClassName="custom-modal"
+        onOk={onSubmit}
+        onCancel={handleClose}
+        okText="찾기"
+        cancelText="취소"
+      >
+        <DialogContent>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar
+              onChange={(newDate: Dayjs | null) => {
+                if (newDate) {
+                  setDate(newDate.format("YYYY-MM-DD"));
+                }
+              }}
+              sx={{
+                "& .MuiTypography-root": {
+                  // This targets all Typography elements which are used for text inside the calendar.
+                  color: "white !important",
+                },
+                "& .MuiButtonBase-root": { color: "white !important" },
+                ".Mui-selected": {
+                  backgroundColor: `${theme.palette.color.yellow} !important`,
+                  color: "black !important",
+                },
+                // Add more custom styles here if needed
+              }}
+            />
+          </LocalizationProvider>
+        </DialogContent>
+      </Modal>
+    </React.Fragment>
+  );
+}
