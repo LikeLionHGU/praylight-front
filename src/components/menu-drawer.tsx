@@ -1,15 +1,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import hamburgerIcon from "../imgs/hamburgerIcon.png";
 import styled from "styled-components";
 import theme from "../theme";
@@ -49,7 +42,7 @@ export default function MenuDrawer() {
   };
 
   const movetoRoomlist = () => {
-    history.push(`/`);
+    history.push(`/home`);
   };
 
   const movetoMypage = () => {
@@ -83,7 +76,6 @@ export default function MenuDrawer() {
 
   return (
     <div>
-      {/* <Button>Open Right Drawer</Button>/ */}
       <Icon src={hamburgerIcon} onClick={toggleDrawer} />
       <Drawer anchor="right" open={isOpen} onClose={toggleDrawer}>
         {list()}

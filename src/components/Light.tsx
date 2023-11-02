@@ -35,7 +35,7 @@ export default function Light({ ppl }: { ppl: number }) {
   const [light, setLight] = useState(false);
 
   const toggleLight = () => {
-    setLight(!light);
+    setLight(true);
   };
 
   return (
@@ -47,7 +47,7 @@ export default function Light({ ppl }: { ppl: number }) {
           <LightImg src={lightOff} onClick={toggleLight} />
         )}
         <Columns>
-          <PowerImg src={onoffbutton} />
+          <PowerImg src={onoffbutton} onClick={toggleLight} />
           <Ppl>오늘 {ppl}명이 기도의 불을 켰습니다.</Ppl>
         </Columns>
       </Container>

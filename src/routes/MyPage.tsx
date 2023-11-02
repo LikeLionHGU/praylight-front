@@ -1,18 +1,7 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import { useParams } from "react-router-dom";
 import theme from "../theme";
-import { IoPeopleCircleSharp } from "react-icons/io5";
-import { SlCalender } from "react-icons/sl";
-import StarCalender from "../components/StarCalender";
 import PraiseCard from "../components/PraiseCard";
-import Light from "../components/Light";
-import AddPrayDialog from "../components/add-pray-dialog";
-import MemberListDialog from "../components/member-list-dialog";
-import CalendarDialog from "../components/calendar-dialog";
-import homeIcon from "../imgs/homeIcon.png";
-import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
-import { useState } from "react";
 
 const myInfo = {
   praiseCount: 5,
@@ -56,10 +45,6 @@ const myInfo = {
   ],
 };
 
-interface RouteParams {
-  roomId: string;
-}
-
 const Container = styled.div`
   width: 100%;
   background-color: black;
@@ -80,12 +65,6 @@ const Top = styled.div`
 const Title = styled.div`
   font-size: 20px;
   font-weight: bold;
-`;
-
-const Ppl = styled.div`
-  color: ${theme.palette.color.gray4};
-  font-size: 12px;
-  padding: 10px 0px;
 `;
 
 const Counts = styled.div`
@@ -140,12 +119,7 @@ const Day = styled.div`
   padding: 5px 0px;
 `;
 
-const Icon = styled.img`
-  width: 22px;
-`;
-
 export default function MyPage() {
-  const { roomId } = useParams<RouteParams>();
   //   const [currentDate, setCurrentDate] = useState(new Date(roomInfo.date));
 
   //   const { isLoading, data: roomInfo } = useQuery(

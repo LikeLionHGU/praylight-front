@@ -34,7 +34,7 @@ function Router() {
       <Switch>
         <Page>
           <Center>
-            <Route exact path="/start">
+            <Route exact path="/">
               <Start />
             </Route>
             <Route exact path="/login">
@@ -42,7 +42,7 @@ function Router() {
             </Route>
             {isUserLoggedIn ? (
               <>
-                <Route exact path="/">
+                <Route exact path="/home">
                   <Main />
                 </Route>
                 <Route exact path="/room/:roomId">
@@ -56,7 +56,7 @@ function Router() {
                 </Route>
               </>
             ) : (
-              <Redirect to="/start" />
+              <Redirect to="/" />
             )}
           </Center>
         </Page>

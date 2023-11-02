@@ -4,7 +4,6 @@ import { useState } from "react";
 
 import prayOff from "../imgs/prayOff.png";
 import prayOn from "../imgs/prayOn.png";
-
 import EditPrayDialog from "./edit-pray-dialog";
 import DeletePrayDialog from "./delete-pray-dialog";
 
@@ -46,10 +45,6 @@ const Btn = styled.div`
   align-items: center;
   gap: 10px;
   font-size: 12px;
-`;
-
-const Icon = styled.img`
-  width: 15px;
 `;
 
 const Praied = styled.img`

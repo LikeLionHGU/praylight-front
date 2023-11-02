@@ -2,16 +2,11 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { useParams } from "react-router-dom";
 import theme from "../theme";
-import { IoPeopleCircleSharp } from "react-icons/io5";
-import { SlCalender } from "react-icons/sl";
-import StarCalender from "../components/StarCalender";
 import PraiseCard from "../components/PraiseCard";
 import Light from "../components/Light";
 import AddPrayDialog from "../components/add-pray-dialog";
 import MemberListDialog from "../components/member-list-dialog";
 import CalendarDialog from "../components/calendar-dialog";
-// import { useQuery } from 'react-query';ㄴ
-// import { getRoomInfo } from '../apis/apis';
 
 const roomInfo = {
   roomName: "한동대학교 기도방",

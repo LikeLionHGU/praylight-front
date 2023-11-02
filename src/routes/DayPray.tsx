@@ -2,11 +2,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { useParams } from "react-router-dom";
 import theme from "../theme";
-import { IoPeopleCircleSharp } from "react-icons/io5";
-import { SlCalender } from "react-icons/sl";
-import StarCalender from "../components/StarCalender";
 import PraiseCard from "../components/PraiseCard";
-import Light from "../components/Light";
 import AddPrayDialog from "../components/add-pray-dialog";
 import MemberListDialog from "../components/member-list-dialog";
 import CalendarDialog from "../components/calendar-dialog";
@@ -70,12 +66,10 @@ const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
 `;
 
 const Top = styled.div`
   display: flex;
-  /* grid-template-columns: 1fr 1fr; */
   gap: 20px;
   justify-content: space-between;
   margin-bottom: 10px;

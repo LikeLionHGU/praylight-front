@@ -76,10 +76,6 @@ export default function KickOutDialog({
     onClose();
   };
 
-  const onSubmit = (values: any) => {
-    console.log(values);
-  };
-
   return (
     <React.Fragment>
       <GlobalStyle />

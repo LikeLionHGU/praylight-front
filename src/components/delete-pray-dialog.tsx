@@ -53,10 +53,6 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
     setOpen(true);
   };
 
-  const onSubmit = (values: any) => {
-    console.log(values);
-  };
-
   return (
     <React.Fragment>
       <GlobalStyle />

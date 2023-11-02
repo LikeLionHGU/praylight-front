@@ -74,10 +74,6 @@ export default function EditPrayDialog({ pray }: { pray: Pray }) {
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const onSubmit = (values: any) => {
     console.log(values);
   };

@@ -125,10 +125,6 @@ export default function AddPrayDialog({
     setOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const onSubmit = (values: any) => {
     console.log(values);
   };

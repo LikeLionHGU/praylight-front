@@ -47,7 +47,8 @@ export default function Start() {
         <Title>기도제목을 나누며 </Title>
         <Title>함께 기도하세요</Title>
         <SubTitle>기도방에서 서로의 기도제목을 나누며 기도해요.</SubTitle>
-        <Link to="/login">
+        {/* <Link to="/login"> */}
+        <Link to="/home">
           <Btn>기도방으로 들어가기</Btn>
         </Link>
       </StartMain>

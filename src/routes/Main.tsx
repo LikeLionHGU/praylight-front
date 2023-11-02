@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Header from "../components/Header";
 import RoomList from "../components/RoomList";
-import { Link } from "react-router-dom";
 import JoinRoomDialog from "../components/join-room-dialog";
+import AddNewRoomDialog from "../components/add-newroom-dialog";
 
 const Title = styled.div`
   font-size: 20px;
@@ -24,16 +24,6 @@ const Container = styled.div`
   padding: 30px;
 `;
 
-const Btn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  padding: 10px 10px;
-  border: 1px solid white;
-  border-radius: 18px;
-`;
-
 export default function Main() {
   return (
     <>
@@ -41,9 +31,7 @@ export default function Main() {
       <Container>
         <Title> 나의 기도방 </Title>
         <Btns>
-          <Btn>
-            <Link to="/addroom">새 기도방 짓기</Link>
-          </Btn>
+          <AddNewRoomDialog />
           <JoinRoomDialog />
         </Btns>
         <RoomList />

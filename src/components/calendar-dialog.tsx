@@ -1,13 +1,8 @@
 import * as React from "react";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import styled, { createGlobalStyle } from "styled-components";
-import { Form, Modal } from "antd";
+import { createGlobalStyle } from "styled-components";
+import { Modal } from "antd";
 import theme from "../theme";
-import { IoPeopleCircleSharp } from "react-icons/io5";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import KickOutDialog from "./kickOut-dialog";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
@@ -69,6 +64,7 @@ export default function CalendarDialog({ roomId }: { roomId: string }) {
                 }
               }}
               sx={{
+                width: "100%",
                 "& .MuiTypography-root": {
                   // This targets all Typography elements which are used for text inside the calendar.
                   color: "white !important",

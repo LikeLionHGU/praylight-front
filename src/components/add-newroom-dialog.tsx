@@ -5,6 +5,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
 import { Form, Input, Modal } from "antd";
 import theme from "../theme";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+
+const roomCode = "123456";
 
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
@@ -62,36 +65,9 @@ const Btn = styled.div`
   border-radius: 18px;
 `;
 
-const SmallBtn = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 40px;
-  border: 1px solid white;
-  border-radius: 18px;
-  color: white;
-  background-color: black;
-`;
-
-const Rows = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  gap: 10px;
-  margin-top: 20px;
-`;
-
-const NoFoundRoom = styled.div`
-  color: ${theme.palette.color.gray3};
-`;
-
-export default function JoinRoomDialog() {
+export default function AddNewRoomDialog() {
   const [open, setOpen] = React.useState(false);
   const [newModalOpen, setNewModalOpen] = React.useState(false);
-
-  const [find, setFind] = React.useState(true);
-  const [room, setRoom] = React.useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -106,23 +82,25 @@ export default function JoinRoomDialog() {
     console.log(values);
   };
 
-  const findRoom = () => {
-    console.log("findRoom");
-    setFind(false);
-    setRoom("김호준 교수님 PRS");
-  };
+  async function copyToClipboard(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (err) {
+      console.error("Error copying text: ", err);
+    }
+  }
 
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Btn onClick={handleClickOpen}>기도방 들어가기</Btn>
+      <Btn onClick={handleClickOpen}>새 기도방 짓기</Btn>
       <Modal
         open={open}
         centered
         onOk={handleOk}
         onCancel={() => setOpen(false)}
         style={{ width: "500px" }}
-        okText="확인"
+        okText="생성"
         cancelText="취소"
         wrapClassName="custom-modal"
       >
@@ -130,22 +108,14 @@ export default function JoinRoomDialog() {
         <DialogContent>
           <Form name="productUpload" onFinish={onSubmit}>
             <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
-              참여하실 기도방의 코드를 입력해주세요.
+              새 기도방의 이름을 입력하세요.
             </DialogContentText>
-            <Rows>
-              <Form.Item name="pray_content">
-                <Input
-                  placeholder="기도방 코드를 입력하세요."
-                  style={{ backgroundColor: theme.palette.color.gray1 }}
-                />
-              </Form.Item>
-              <SmallBtn onClick={findRoom}> 찾기 </SmallBtn>
-            </Rows>
-            {find ? (
-              <div />
-            ) : (
-              <NoFoundRoom>*존재하지 않는 코드입니다. </NoFoundRoom>
-            )}
+            <Form.Item name="pray_content">
+              <Input
+                placeholder="기도방 이름을 입력하세요."
+                style={{ backgroundColor: theme.palette.color.gray1 }}
+              />
+            </Form.Item>
           </Form>
         </DialogContent>
       </Modal>
@@ -159,19 +129,43 @@ export default function JoinRoomDialog() {
         cancelText="취소"
         wrapClassName="custom-modal"
       >
-        <DialogTitle>기도방 입장</DialogTitle>
+        <DialogTitle>새 기도방 짓기</DialogTitle>
         <DialogContent>
           <DialogContentText
             style={{
               color: "white",
-
               display: "flex",
               alignContent: "center",
               fontSize: "16px",
             }}
           >
-            입력하신 코드에 해당하는 기도방은 {room} 입니다. 이 기도방에 함께
-            참여하시겠습니까?
+            생성된 코드를 공유하세요
+          </DialogContentText>
+          <DialogContentText
+            style={{
+              color: "white",
+              padding: "10px 0px",
+              display: "flex",
+              alignContent: "center",
+              fontSize: "20px",
+              fontWeight: "bold",
+            }}
+          >
+            {roomCode}
+            <ContentCopyIcon
+              onClick={() => copyToClipboard(roomCode)}
+              style={{ color: "white", marginLeft: "10px" }}
+            />
+          </DialogContentText>
+          <DialogContentText
+            style={{
+              color: theme.palette.color.gray3,
+              display: "flex",
+              alignContent: "center",
+              fontSize: "16px",
+            }}
+          >
+            3개월 이내 게시된 기도제목이 없을 시 해당 기도방은 사라지게 됩니다
           </DialogContentText>
         </DialogContent>
       </Modal>
