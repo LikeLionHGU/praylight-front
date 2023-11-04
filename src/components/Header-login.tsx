@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { FaPrayingHands } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import logo from "../imgs/logo.png";
 
 const Container = styled.div`
   width: 100%;
@@ -11,6 +11,10 @@ const Container = styled.div`
   align-items: center;
   padding: 0 20px;
   border-bottom: 1px solid #e5e5e5;
+`;
+
+const Img = styled.img`
+  width: 125px;
 `;
 
 const Btn = styled.div`
@@ -24,12 +28,9 @@ export default function HeaderLogin() {
   return (
     <>
       <Container>
-        {/* <Logo src="https://cdn.logo.com/hotlink-ok/logo-social.png" /> */}
         <Link to="/">
-          <FaPrayingHands size={"30px"} />
+          <Img src={logo} />
         </Link>
-        {/* <Icon /> */}
-        {/* <GoHomeFill size={"30px"} /> */}
         <Btn>Login</Btn>
       </Container>
     </>

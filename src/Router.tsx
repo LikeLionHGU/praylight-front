@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Main from "./routes/Main";
 import { useRecoilValue } from "recoil";
-
+import exinfoimg from "./imgs/extra.svg";
 import { IsLoginState } from "./store/atom";
 import Login from "./routes/Login";
 import styled from "styled-components";
@@ -24,6 +24,17 @@ const Center = styled.div`
   background-color: black;
   height: calc(var(--vh, 1vh) * 100);
   min-height: auto;
+`;
+
+const ExInfo = styled.div`
+  position: fixed;
+  right: 15vw;
+  top: 20vw;
+  width: 200px;
+`;
+
+const Img = styled.img`
+  width: 100%;
 `;
 
 function Router() {
@@ -59,6 +70,9 @@ function Router() {
               <Redirect to="/" />
             )}
           </Center>
+          <ExInfo>
+            <Img src={exinfoimg} alt="exinfoimg" />
+          </ExInfo>
         </Page>
       </Switch>
     </BrowserRouter>

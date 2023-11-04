@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FaPrayingHands } from "react-icons/fa";
+import logo from "../imgs/logo.png";
 import { Link } from "react-router-dom";
 import MenuDrawer from "./menu-drawer";
 
@@ -14,12 +14,16 @@ const Container = styled.div`
   border-bottom: 1px solid #e5e5e5;
 `;
 
+const Img = styled.img`
+  width: 125px;
+`;
+
 export default function Header() {
   return (
     <>
       <Container>
         <Link to="/">
-          <FaPrayingHands size={"30px"} />
+          <Img src={logo} />
         </Link>
         <MenuDrawer />
       </Container>
