@@ -24,6 +24,7 @@ const roomInfo = {
       praiseContent:
         "작은 일에도 감사할 줄 아는 마음을 가지길 바라요. 매일 감사하는 하루하루 되길.",
       Dday: 14,
+      isMine: false,
     },
     {
       pid: 7,
@@ -31,6 +32,7 @@ const roomInfo = {
       praiseContent:
         "최근 힘들었던 일들이 있었어요. 그럼에도 불구하고 희망을 잃지 않길 기원합니다.",
       Dday: 13,
+      isMine: false,
     },
     {
       pid: 8,
@@ -38,6 +40,7 @@ const roomInfo = {
       praiseContent:
         "신앙의 길에서 매번 새로운 가르침을 받게 되길 바랍니다. 하나님의 뜻을 찾아가는 여정이 되길.",
       Dday: 19,
+      isMine: false,
     },
     {
       pid: 9,
@@ -45,6 +48,7 @@ const roomInfo = {
       praiseContent:
         "앞으로의 여정에서도 굳건한 믿음으로 지키며 살아가길 바란다.",
       Dday: 18,
+      isMine: false,
     },
     {
       pid: 10,
@@ -52,6 +56,7 @@ const roomInfo = {
       praiseContent:
         "새로운 시작을 앞두고 있어요. 두려움 없이 도전하고, 좋은 결과를 이루기를 바랍니다.",
       Dday: 12,
+      isMine: false,
     },
   ],
 };

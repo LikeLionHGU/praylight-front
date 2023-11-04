@@ -3,7 +3,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
-import { Modal } from "antd";
+import { Modal, Button } from "antd";
 
 import theme from "../theme";
 import deleteIcon from "../imgs/deleteIcon.png";
@@ -53,6 +53,11 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
     setOpen(true);
   };
 
+  const onSubmit = (values: any) => {
+    console.log(values);
+    setOpen(false);
+  };
+
   return (
     <React.Fragment>
       <GlobalStyle />
@@ -64,10 +69,7 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
         centered
         style={{ width: "500px" }}
         wrapClassName="custom-modal"
-        onOk={() => setOpen(false)}
-        onCancel={() => setOpen(false)}
-        okText="확인"
-        cancelText="취소"
+        footer={false}
       >
         <DialogTitle>기도제목 삭제</DialogTitle>
         <DialogContent>
@@ -82,6 +84,37 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
           >
             해당 기도제목을 삭제하시겠습니까?
           </DialogContentText>
+          <div style={{ margin: "20px" }} />
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <Button
+              id="cancel-button"
+              onClick={() => setOpen(false)}
+              style={{
+                border: "1px solid black",
+                marginRight: "10px",
+                fontWeight: "bold",
+                width: "100px",
+                borderRadius: "20px",
+              }}
+            >
+              취소
+            </Button>
+            <Button
+              id="submit-button"
+              size="large"
+              htmlType="submit"
+              onClick={onSubmit}
+              style={{
+                backgroundColor: "black",
+                color: "white",
+                fontWeight: "bold",
+                width: "100px",
+                borderRadius: "20px",
+              }}
+            >
+              삭제
+            </Button>
+          </div>
         </DialogContent>
       </Modal>
     </React.Fragment>

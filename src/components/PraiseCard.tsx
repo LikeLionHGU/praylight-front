@@ -7,14 +7,12 @@ import prayOn from "../imgs/prayOn.png";
 import EditPrayDialog from "./edit-pray-dialog";
 import DeletePrayDialog from "./delete-pray-dialog";
 
-const mine = {
-  isMine: true,
-};
 interface Pray {
   pid: number;
   name: string;
   praiseContent: string;
   Dday: number;
+  isMine: boolean;
 }
 
 const Container = styled.div`
@@ -66,7 +64,7 @@ export default function PraiseCard({ pray }: { pray: Pray }) {
         </Rows>
         <Body>{pray.praiseContent}</Body>
         <Rows>
-          {mine.isMine ? (
+          {pray.isMine ? (
             <Btn>
               <EditPrayDialog pray={pray} />
               <DeletePrayDialog prayId={pray.pid} />

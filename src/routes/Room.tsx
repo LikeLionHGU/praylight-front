@@ -24,6 +24,7 @@ const roomInfo = {
           praiseContent:
             "작은 일에도 감사할 줄 아는 마음을 가지길 바라요. 매일 감사하는 하루하루 되길.",
           Dday: 14,
+          isMine: false,
         },
         {
           pid: 7,
@@ -31,13 +32,15 @@ const roomInfo = {
           praiseContent:
             "최근 힘들었던 일들이 있었어요. 그럼에도 불구하고 희망을 잃지 않길 기원합니다.",
           Dday: 13,
+          isMine: false,
         },
         {
           pid: 8,
-          name: "조은별",
+          name: "김한동",
           praiseContent:
             "신앙의 길에서 매번 새로운 가르침을 받게 되길 바랍니다. 하나님의 뜻을 찾아가는 여정이 되길.",
           Dday: 19,
+          isMine: true,
         },
         {
           pid: 9,
@@ -45,6 +48,7 @@ const roomInfo = {
           praiseContent:
             "앞으로의 여정에서도 굳건한 믿음으로 지키며 살아가길 바란다.",
           Dday: 18,
+          isMine: false,
         },
         {
           pid: 10,
@@ -52,6 +56,7 @@ const roomInfo = {
           praiseContent:
             "새로운 시작을 앞두고 있어요. 두려움 없이 도전하고, 좋은 결과를 이루기를 바랍니다.",
           Dday: 12,
+          isMine: false,
         },
       ],
     },
@@ -64,6 +69,7 @@ const roomInfo = {
           praiseContent:
             "프로젝트를 성공적으로 마치길 바랍니다. 팀원들과 원만한 관계를 유지하길.",
           Dday: 25,
+          isMine: false,
         },
         {
           pid: 4,
@@ -71,6 +77,7 @@ const roomInfo = {
           praiseContent:
             "가족과 함께하는 시간이 늘어나길 바라요. 모두가 건강하고 행복하길.",
           Dday: 20,
+          isMine: false,
         },
         {
           pid: 5,
@@ -78,6 +85,7 @@ const roomInfo = {
           praiseContent:
             "다가오는 면접이 걱정되네요. 좋은 결과 있기를 기도합니다.",
           Dday: 15,
+          isMine: false,
         },
       ],
     },
@@ -89,13 +97,15 @@ const roomInfo = {
           name: "김민지",
           praiseContent: "시험 잘 보고 싶어요 ㅠㅠ 졸업할 수 있게 도와주세요",
           Dday: 30,
+          isMine: false,
         },
         {
           pid: 1,
-          name: "정수정",
+          name: "김한동",
           praiseContent:
             "졸업 준비하는 중에 예민한데, 그 핑계로 신앙을 잃 지 않고 말씀 읽고 친구들을 사랑의 눈으로 바라볼 수 있길",
           Dday: 25,
+          isMine: true,
         },
       ],
     },

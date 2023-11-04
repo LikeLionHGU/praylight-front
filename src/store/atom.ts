@@ -25,8 +25,18 @@ export const IsLoginState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-// export const MemberIdState = atom({
-//   key: 'MemberIdState',
-//   default: 1,
-//   effects_UNSTABLE: [persistAtom],
-// });
+export const MemberIdState = atom({
+  key: "MemberIdState",
+  default: 1,
+  effects_UNSTABLE: [persistAtom],
+});
+
+export const RoomList = atom({
+  key: "RoomList",
+  default: [
+    {
+      id: 1,
+      name: "한동대 전체 기도방",
+    },
+  ],
+});

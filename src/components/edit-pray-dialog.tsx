@@ -4,7 +4,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
 import TextArea from "antd/es/input/TextArea";
-import { Form, InputNumber, Modal } from "antd";
+import { Form, InputNumber, Modal, Button } from "antd";
 
 import theme from "../theme";
 import editIcon from "../imgs/editIcon.png";
@@ -67,7 +67,6 @@ interface Pray {
 }
 
 export default function EditPrayDialog({ pray }: { pray: Pray }) {
-  console.log(pray);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -75,6 +74,7 @@ export default function EditPrayDialog({ pray }: { pray: Pray }) {
   };
 
   const onSubmit = (values: any) => {
+    setOpen(false);
     console.log(values);
   };
 
@@ -85,11 +85,8 @@ export default function EditPrayDialog({ pray }: { pray: Pray }) {
       <Modal
         open={open}
         centered
-        onOk={() => setOpen(false)}
-        onCancel={() => setOpen(false)}
         style={{ width: "500px" }}
-        okText="완료"
-        cancelText="취소"
+        footer={false}
         wrapClassName="custom-modal"
       >
         <DialogTitle>기도제목 수정</DialogTitle>
@@ -120,6 +117,39 @@ export default function EditPrayDialog({ pray }: { pray: Pray }) {
                 value={pray.Dday}
                 style={{ backgroundColor: theme.palette.color.gray1 }}
               />
+            </Form.Item>
+
+            <div style={{ margin: "20px" }} />
+            <Form.Item>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button
+                  id="cancel-button"
+                  onClick={() => setOpen(false)}
+                  style={{
+                    border: "1px solid black",
+                    marginRight: "10px",
+                    fontWeight: "bold",
+                    width: "100px",
+                    borderRadius: "20px",
+                  }}
+                >
+                  취소
+                </Button>
+                <Button
+                  id="submit-button"
+                  size="large"
+                  htmlType="submit"
+                  style={{
+                    backgroundColor: "black",
+                    color: "white",
+                    fontWeight: "bold",
+                    width: "100px",
+                    borderRadius: "20px",
+                  }}
+                >
+                  완료
+                </Button>
+              </div>
             </Form.Item>
           </Form>
         </DialogContent>

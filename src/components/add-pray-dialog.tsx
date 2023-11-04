@@ -4,12 +4,19 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
 import TextArea from "antd/es/input/TextArea";
-import { Checkbox, Form, InputNumber, Modal } from "antd";
+import { Checkbox, Form, InputNumber, Modal, Button } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import theme from "../theme";
+import { useRecoilValue } from "recoil";
+import { MemberIdState } from "../store/atom";
+import axios from "axios";
 
-const plainOptions = ["Apple", "Pear", "Orange"];
+const plainOptions = [
+  "한동대 전체 기도방",
+  "프레이즈 기도방",
+  "김호준 교수님 PRS",
+];
 
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
@@ -112,10 +119,12 @@ export default function AddPrayDialog({
 }: {
   currentRoom: string;
 }) {
+  const memberId = useRecoilValue(MemberIdState);
   const [open, setOpen] = React.useState(false);
   const [checkedList, setCheckedList] = React.useState<CheckboxValueType[]>([
     currentRoom,
   ]);
+  // const roomlist = useRecoilValue(RoomList);
 
   const checkAll = plainOptions.length === checkedList.length;
   const indeterminate =
@@ -125,8 +134,17 @@ export default function AddPrayDialog({
     setOpen(true);
   };
 
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const onSubmit = async (values: any) => {
+    setOpen(false); // Close the modal
+    const response = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/room/prayer`, // 템플릿 리터럴 사용
+      {
+        ...values,
+        authorId: memberId,
+      }
+    );
+
+    return response;
   };
 
   const onChange = (list: CheckboxValueType[]) => {
@@ -144,16 +162,12 @@ export default function AddPrayDialog({
   return (
     <React.Fragment>
       <GlobalStyle />
-      {/* <Button variant="outlined" onClick={handleClickOpen}> */}
       <AddPraise onClick={handleClickOpen}>새 기도제목 작성</AddPraise>
       <Modal
         open={open}
         centered
-        onOk={() => setOpen(false)}
-        onCancel={() => setOpen(false)}
         style={{ width: "500px" }}
-        okText="완료"
-        cancelText="취소"
+        footer={false}
         wrapClassName="custom-modal"
       >
         <DialogTitle>새 기도제목 작성</DialogTitle>
@@ -191,6 +205,7 @@ export default function AddPrayDialog({
               </Checkbox>
 
               <CheckboxGroup
+                // options={roomlist.map((item) => item.name)}
                 options={plainOptions}
                 value={checkedList}
                 onChange={onChange}
@@ -201,6 +216,38 @@ export default function AddPrayDialog({
             <Checkbox onChange={onChangeAnony} style={{ color: "white" }}>
               익명
             </Checkbox>
+            <div style={{ margin: "20px" }} />
+            <Form.Item>
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <Button
+                  id="cancel-button"
+                  onClick={() => setOpen(false)}
+                  style={{
+                    border: "1px solid black",
+                    marginRight: "10px",
+                    fontWeight: "bold",
+                    width: "100px",
+                    borderRadius: "20px",
+                  }}
+                >
+                  취소
+                </Button>
+                <Button
+                  id="submit-button"
+                  size="large"
+                  htmlType="submit"
+                  style={{
+                    backgroundColor: "black",
+                    color: "white",
+                    fontWeight: "bold",
+                    width: "100px",
+                    borderRadius: "20px",
+                  }}
+                >
+                  완료
+                </Button>
+              </div>
+            </Form.Item>
           </Form>
         </DialogContent>
       </Modal>
