@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import theme from "../theme";
 import PraiseCard from "../components/PraiseCard";
 import AddPrayDialog from "../components/add-pray-dialog";
@@ -197,7 +197,9 @@ export default function DayPray() {
           <Rows>
             <PrayNum>{roomInfo.praiseCount}개의 기도제목이 올라왔어요 </PrayNum>
             <Rows>
-              <Icon src={homeIcon} alt="home" />
+              <Link to="/home">
+                <Icon src={homeIcon} alt="home" />
+              </Link>
               <MemberListDialog roomId={roomId} />
               <CalendarDialog roomId={roomId} />
             </Rows>

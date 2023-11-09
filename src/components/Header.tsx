@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <>
       <Container>
-        <Link to="/">
+        <Link to="/home">
           <Img src={logo} />
         </Link>
         <MenuDrawer />
