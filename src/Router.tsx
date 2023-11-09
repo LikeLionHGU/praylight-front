@@ -70,9 +70,9 @@ function Router() {
               <Redirect to="/" />
             )}
           </Center>
-          <ExInfo>
+          {/* <ExInfo>
             <Img src={exinfoimg} alt="exinfoimg" />
-          </ExInfo>
+          </ExInfo> */}
         </Page>
       </Switch>
     </BrowserRouter>
