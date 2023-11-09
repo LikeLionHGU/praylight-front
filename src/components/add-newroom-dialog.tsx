@@ -104,7 +104,7 @@ export default function AddNewRoomDialog() {
         cancelText="취소"
         wrapClassName="custom-modal"
       >
-        <DialogTitle>기도방 코드를 입력하세요.</DialogTitle>
+        <DialogTitle>새 기도방 생성하기</DialogTitle>
         <DialogContent>
           <Form name="productUpload" onFinish={onSubmit}>
             <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
