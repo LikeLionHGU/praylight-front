@@ -165,15 +165,24 @@ export default function JoinRoomDialog() {
         <DialogContent>
           <DialogContentText
             style={{
-              color: "white",
-
+              color: theme.palette.color.gray2,
               display: "flex",
               alignContent: "center",
               fontSize: "16px",
             }}
           >
-            입력하신 코드에 해당하는 기도방은 {room} 입니다. 이 기도방에 함께
-            참여하시겠습니까?
+            입력하신 코드에 해당하는 기도방은 {room} 입니다.
+          </DialogContentText>
+          <DialogContentText
+            style={{
+              color: theme.palette.color.gray2,
+              display: "flex",
+              alignContent: "center",
+              fontSize: "16px",
+              marginTop: "15px",
+            }}
+          >
+            이 기도방에 함께 참여하시겠습니까?
           </DialogContentText>
         </DialogContent>
       </Modal>
