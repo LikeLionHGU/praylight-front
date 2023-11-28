@@ -7,48 +7,47 @@ import { Form, Input, Modal } from "antd";
 import theme from "../theme";
 
 const GlobalStyle = createGlobalStyle`
-  .custom-modal .ant-modal-content {
+   .custom-modal .ant-modal-content {
     background-color: ${theme.palette.color.gray6}; // 모달의 배경색을 검정색으로 설정
     color: white; // 모달의 글자색을 하얀색으로 설정
+    box-shadow: none !important;
+    margin: 0px !important;
   }
 
-  .custom-modal .ant-modal-footer .ant-btn-primary {
-    background-color: black; // 확인(submit) 버튼의 배경색을 회색으로 설정
-    border-color: white; // 확인(submit) 버튼의 테두리 색상을 회색으로 설정
+  .custom-modal .ant-modal-footer .ant-btn {
+    border: none; // Removes border from both buttons
+    box-shadow: none !important;
   }
   
-  .ant-btn {
-    padding: 5px 20px; // 확인(submit) 버튼의 padding을 5px 위아래, 20px 좌우로 설정
-    border-radius: 18px;
-    /* font-size: 16px; */
+  .custom-modal .ant-modal-footer .ant-btn-primary {
+    color: ${theme.palette.color.yellow} !important; // Sets text color of the Create button to yellow
+    background: none !important; // Removes background color
+    border: none; // Removes border
+    box-shadow: none !important;
+    font-weight: bold;
+  }
+
+  .custom-modal .ant-modal-footer .ant-btn-default {
+    color: white !important; // Sets text color of the Cancel button to white
+    background: none !important; // Removes background color
+    border: none; // Removes border
+    box-shadow: none !important;
+    font-weight: bold;
   }
 
   .custom-modal .ant-modal-body .ant-input-textarea textarea {
-    background-color: #f0f0f0; // TextArea 배경색을 회색으로 설정
-    color: black; // TextArea 글자색을 검정색으로 설정
+    color: white;
+    box-shadow: none !important;
   }
 
   .ant-input:hover, .ant-input:focus, .ant-input-focused, .ant-input-number:hover, .ant-input-number:focus,  .ant-input-number-focused
   .ant-input-textarea:hover, .ant-input-textarea:focus, .ant-input-textarea-focused {
-    border-color: transparent !important;
     box-shadow: none !important;
   }
 
-  // Style changes for Button on hover to make the background yellow
   .ant-btn-primary:hover, .ant-btn-primary:focus {
     background-color: ${theme.palette.color.yellow} !important;
-    border-color: ${theme.palette.color.yellow}  !important;
     box-shadow: none !important;
-  }
-  .ant-modal-footer .ant-btn-default:hover {
-    color: ${theme.palette.color.yellow} !important; // Changes text color to yellow on hover
-    border-color: ${theme.palette.color.yellow}  !important;
-  }
-  
-  // Style changes for Button when active (clicked)
-  .ant-btn:active, .ant-btn-clicked {
-    background-color: ${theme.palette.color.yellow}  !important;
-    border-color: ${theme.palette.color.yellow}  !important;
   }
 `;
 
@@ -66,12 +65,12 @@ const SmallBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 40px;
+  width: 70px;
+  height: 35px;
   border: 1px solid white;
   border-radius: 18px;
   color: white;
-  background-color: black;
+  margin-bottom: 0px;
 `;
 
 const Rows = styled.div`
@@ -79,11 +78,12 @@ const Rows = styled.div`
   flex-direction: row;
   width: 100%;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 const NoFoundRoom = styled.div`
   color: ${theme.palette.color.gray3};
+  font-size: 12px;
 `;
 
 export default function JoinRoomDialog() {
@@ -126,28 +126,30 @@ export default function JoinRoomDialog() {
         cancelText="취소"
         wrapClassName="custom-modal"
       >
-        <DialogTitle>기도방 코드를 입력하세요.</DialogTitle>
-        <DialogContent>
-          <Form name="productUpload" onFinish={onSubmit}>
-            <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
-              참여하실 기도방의 코드를 입력해주세요.
-            </DialogContentText>
-            <Rows>
-              <Form.Item name="pray_content">
-                <Input
-                  placeholder="기도방 코드를 입력하세요."
-                  style={{ backgroundColor: theme.palette.color.gray1 }}
-                />
-              </Form.Item>
-              <SmallBtn onClick={findRoom}> 찾기 </SmallBtn>
-            </Rows>
-            {find ? (
-              <div />
-            ) : (
-              <NoFoundRoom>*존재하지 않는 코드입니다. </NoFoundRoom>
-            )}
-          </Form>
-        </DialogContent>
+        <DialogTitle sx={{ padding: "10px 0px" }}>
+          기도방 코드를 입력하세요.
+        </DialogTitle>
+        <Form name="productUpload" onFinish={onSubmit}>
+          <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
+            참여하실 기도방의 코드를 입력해주세요.
+          </DialogContentText>
+          <Rows>
+            <Form.Item name="pray_content" style={{ marginBottom: "0px" }}>
+              <Input
+                placeholder="기도방 코드를 입력하세요."
+                style={{
+                  backgroundColor: theme.palette.color.gray1,
+                }}
+              />
+            </Form.Item>
+            <SmallBtn onClick={findRoom}> 찾기 </SmallBtn>
+          </Rows>
+          {find ? (
+            <div />
+          ) : (
+            <NoFoundRoom>*존재하지 않는 코드입니다. </NoFoundRoom>
+          )}
+        </Form>
       </Modal>
       <Modal
         open={newModalOpen}
