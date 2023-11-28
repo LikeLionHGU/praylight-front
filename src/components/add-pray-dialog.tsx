@@ -97,9 +97,10 @@ const AddPraise = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 150px;
-  height: 40px;
-  border: 1px solid white;
+  width: 170px;
+  height: 36px;
+  background-color: ${theme.palette.color.gray7};
+  border: 1px solid ${theme.palette.color.gray4};
   border-radius: 18px;
   font-size: 16px;
 `;

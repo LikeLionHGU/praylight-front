@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import theme from "../theme";
 
 interface Iroom {
   rId: number;
@@ -13,9 +14,11 @@ const Container = styled.div`
   border-radius: 8px;
   width: 100%;
   padding: 15px 10px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 `;
 
 const Name = styled.div`
@@ -25,12 +28,13 @@ const Name = styled.div`
 
 const PplNum = styled.div`
   font-size: 12px;
-  color: gray;
+  padding-top: 3px;
+  color: ${theme.palette.color.gray4};
 `;
 
 const DateAgo = styled.div`
   font-size: 16px;
-  color: gray;
+  color: ${theme.palette.color.gray4};
 `;
 
 export default function RoomCard({ room }: { room: Iroom }) {

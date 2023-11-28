@@ -127,7 +127,6 @@ const Container = styled.div`
 
 const Top = styled.div`
   display: flex;
-  /* grid-template-columns: 1fr 1fr; */
   gap: 20px;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -141,12 +140,13 @@ const Title = styled.div`
 const Ppl = styled.div`
   color: ${theme.palette.color.gray4};
   font-size: 12px;
-  padding: 10px 0px;
+  padding: 5px 0px;
 `;
 
 const Counts = styled.div`
   display: flex;
   flex-direction: column;
+  padding-top: 5px;
 `;
 
 const Rows = styled.div`
@@ -170,12 +170,13 @@ const DateDivider = styled.div`
   position: relative;
   padding-left: 10%;
   color: ${theme.palette.color.gray3};
+  font-size: 12px;
 
   &:before,
   &:after {
     content: "";
     position: absolute;
-    top: 50%;
+    top: 40%;
     height: 1px;
     background-color: ${theme.palette.color.gray3};
   }
@@ -186,7 +187,7 @@ const DateDivider = styled.div`
   }
 
   &:after {
-    left: calc(30% + 10px);
+    left: calc(25% + 10px);
     right: 0;
   }
 `;
@@ -218,7 +219,6 @@ export default function Room() {
             <Title> {roomInfo.roomName} </Title>
             <Ppl> {roomInfo.roomPpl}명 참여 </Ppl>
           </div>
-          {/* <AddPraise> 새 기도제목 작성 </AddPraise> */}
           <AddPrayDialog currentRoom="AAA" />
         </Top>
         <Counts>
@@ -235,7 +235,6 @@ export default function Room() {
           {roomInfo.praises.map((day) => (
             <Day>
               <DateDivider> {day.date} </DateDivider>
-
               {day.praise.map((pray) => (
                 <PraiseCard pray={pray} />
               ))}

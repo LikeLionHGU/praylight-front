@@ -81,7 +81,11 @@ export default function EditPrayDialog({ pray }: { pray: Pray }) {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Icon src={editIcon} onClick={handleClickOpen} />
+      <Icon
+        src={editIcon}
+        onClick={handleClickOpen}
+        style={{ paddingTop: "2px" }}
+      />
       <Modal
         open={open}
         centered

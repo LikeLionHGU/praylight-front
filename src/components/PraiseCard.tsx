@@ -18,7 +18,7 @@ interface Pray {
 const Container = styled.div`
   background-color: ${theme.palette.color.gray7};
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 16px;
   margin-bottom: 10px;
 `;
 
@@ -32,16 +32,21 @@ const Top = styled.div`
   font-size: 12px;
 `;
 
+const Name = styled(Top)`
+  font-weight: bold;
+`;
+
 const Body = styled.div`
   padding: 10px 0px;
   line-height: 1.5;
+  font-size: 16px;
 `;
 
 const Btn = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   font-size: 12px;
 `;
 
@@ -59,15 +64,15 @@ export default function PraiseCard({ pray }: { pray: Pray }) {
     <>
       <Container>
         <Rows>
-          <Top>{pray.name}</Top>
+          <Name>{pray.name}</Name>
           <Top>D-{pray.Dday}</Top>
         </Rows>
         <Body>{pray.praiseContent}</Body>
         <Rows>
           {pray.isMine ? (
             <Btn>
-              <EditPrayDialog pray={pray} />
               <DeletePrayDialog prayId={pray.pid} />
+              <EditPrayDialog pray={pray} />
             </Btn>
           ) : (
             <div />
