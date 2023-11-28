@@ -1,10 +1,14 @@
 import styled from "styled-components";
 // import GoogleButton from "../auth/GoogleButton";
-import LogoBig from "../imgs/side.png";
+import Logo from "../imgs/logo.svg";
 import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
+  background-image: url(/imgs/login_background.png);
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: top center;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
@@ -12,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Img = styled.img`
-  width: 300px;
+  width: 120px;
 `;
 
 const Button = styled.div`
@@ -33,7 +37,8 @@ export default function Login() {
   return (
     <>
       <Container>
-        <Img src={LogoBig} />
+        <Img src={Logo} />
+
         {/* <GoogleButton /> */}
         <Link to="/home">
           <Button> 데모 로그인 하기 </Button>
