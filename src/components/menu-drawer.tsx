@@ -83,6 +83,10 @@ export default function MenuDrawer() {
     history.push(`/mypage`);
   };
 
+  const movetoTogether = () => {
+    history.push(`/prayTogether`);
+  };
+
   const list = () => (
     <Box
       sx={{
@@ -114,6 +118,7 @@ export default function MenuDrawer() {
             <Container style={{ height: "40px" }} />
             <Btn onClick={movetoRoomlist}>나의 기도방</Btn>
             <Btn onClick={movetoMypage}>나의 기도제목</Btn>
+            <Btn onClick={movetoTogether}>함께 기도중인 기도제목</Btn>
           </List>
         </Container>
         <Container>
