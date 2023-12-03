@@ -3,9 +3,10 @@ import RoomCard from "./RoomCard";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getMyRoomList } from "../apis/apis";
-import { useRecoilValue } from "recoil";
-import { UserIdState } from "../store/atom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { UserIdState, isAddedState } from "../store/atom";
 import { Iroom } from "../types/type";
+import { useEffect } from "react";
 
 const Rooms = styled.div`
   display: flex;
@@ -16,7 +17,9 @@ const Rooms = styled.div`
 
 export default function RoomList() {
   const userId = useRecoilValue(UserIdState);
-  const { data: rooms } = useQuery(
+  const [isAdded, setIsAddedState] = useRecoilState(isAddedState);
+
+  const { data: rooms, refetch } = useQuery(
     ["getMyRoomList"],
     () => getMyRoomList(userId).then((response) => response.data),
     {
@@ -25,6 +28,14 @@ export default function RoomList() {
       },
     }
   );
+
+  useEffect(() => {
+    if (isAdded) {
+      refetch().then(() => {
+        setIsAddedState(false);
+      });
+    }
+  }, [isAdded, refetch, setIsAddedState]);
 
   return (
     <>
