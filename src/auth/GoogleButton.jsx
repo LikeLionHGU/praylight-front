@@ -4,7 +4,6 @@ import jwtDecode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { IsLoginState, UserIdState } from "../store/atom";
-import axios from "axios";
 import axiosInstance from "../axios";
 
 export default function GoogleButton() {

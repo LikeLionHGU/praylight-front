@@ -2,8 +2,6 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { Link, useLocation, useParams } from "react-router-dom";
 import theme from "../theme";
-import PraiseCard from "../components/PraiseCard";
-import AddPrayDialog from "../components/add-pray-dialog";
 import MemberListDialog from "../components/member-list-dialog";
 import CalendarDialog from "../components/calendar-dialog";
 import homeIcon from "../imgs/homeIcon.png";
@@ -11,57 +9,6 @@ import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 import { useState } from "react";
 import RoomInfo from "../components/RoomInfo";
 import { Iroom } from "../types/type";
-
-const roomInfo = {
-  title: "한동대학교 기도방",
-  roomPpl: 3,
-  createDate: "2021-09-01",
-  praiseCount: 5,
-  todayCount: 2,
-  date: "2021/10/29",
-  praise: [
-    {
-      pid: 6,
-      name: "한예슬",
-      praiseContent:
-        "작은 일에도 감사할 줄 아는 마음을 가지길 바라요. 매일 감사하는 하루하루 되길.",
-      Dday: 14,
-      isMine: false,
-    },
-    {
-      pid: 7,
-      name: "김태현",
-      praiseContent:
-        "최근 힘들었던 일들이 있었어요. 그럼에도 불구하고 희망을 잃지 않길 기원합니다.",
-      Dday: 13,
-      isMine: false,
-    },
-    {
-      pid: 8,
-      name: "조은별",
-      praiseContent:
-        "신앙의 길에서 매번 새로운 가르침을 받게 되길 바랍니다. 하나님의 뜻을 찾아가는 여정이 되길.",
-      Dday: 19,
-      isMine: false,
-    },
-    {
-      pid: 9,
-      name: "박진호",
-      praiseContent:
-        "앞으로의 여정에서도 굳건한 믿음으로 지키며 살아가길 바란다.",
-      Dday: 18,
-      isMine: false,
-    },
-    {
-      pid: 10,
-      name: "이혜진",
-      praiseContent:
-        "새로운 시작을 앞두고 있어요. 두려움 없이 도전하고, 좋은 결과를 이루기를 바랍니다.",
-      Dday: 12,
-      isMine: false,
-    },
-  ],
-};
 
 interface RouteParams {
   roomId: string;
@@ -78,24 +25,6 @@ const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-`;
-
-const Top = styled.div`
-  display: flex;
-  gap: 20px;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const Title = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-`;
-
-const Ppl = styled.div`
-  color: ${theme.palette.color.gray4};
-  font-size: 12px;
-  padding: 10px 0px;
 `;
 
 const Counts = styled.div`
