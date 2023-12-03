@@ -5,6 +5,7 @@ export type Iroom = {
   code: string;
   lastActivityDate: string;
   lastClickedToday: boolean;
+  anonymous: boolean;
 };
 
 export type Iprayer = {

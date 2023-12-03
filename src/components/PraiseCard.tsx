@@ -71,14 +71,15 @@ export default function PraiseCard({ pray }: { pray: Iprayer }) {
     <>
       <Container>
         <Rows>
-          <Name>{pray.name}</Name>
-          <Top>D-{pray.dday}</Top>
+          {pray?.anonymous ? <Name>익명</Name> : <Name>{pray?.name}</Name>}
+
+          <Top>D-{pray?.dday}</Top>
         </Rows>
-        <Body>{pray.praiseContent}</Body>
+        <Body>{pray?.praiseContent}</Body>
         <Rows>
-          {pray.mine ? (
+          {pray?.mine ? (
             <Btn>
-              <DeletePrayDialog prayId={pray.pid} />
+              <DeletePrayDialog prayId={pray?.pid} />
               <EditPrayDialog pray={pray} />
             </Btn>
           ) : (
