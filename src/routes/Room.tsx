@@ -4,21 +4,20 @@ import { useLocation, useParams } from "react-router-dom";
 import theme from "../theme";
 import PraiseCard from "../components/PraiseCard";
 import Light from "../components/Light";
-import AddPrayDialog from "../components/add-pray-dialog";
 import MemberListDialog from "../components/member-list-dialog";
 import CalendarDialog from "../components/calendar-dialog";
-import { useQuery } from "react-query";
-import { getOneRoomInfo } from "../apis/apis";
 import { useRecoilValue } from "recoil";
 import { UserIdState } from "../store/atom";
-import { Iroom } from "../types/type";
+import { Iprayer, Iroom } from "../types/type";
 import RoomInfo from "../components/RoomInfo";
+import { getRoomPray } from "../apis/roomApis";
+import { useQuery } from "react-query";
 
 const rooms = {
   roomName: "한동대학교 기도방",
   roomPpl: 3,
   createDate: "2021-09-01",
-  praiseCount: 5,
+  praiseCount: 135,
   todayCount: 2,
   praises: [
     {
@@ -124,7 +123,6 @@ const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
 `;
 
 const HeaderBlank = styled.div`
@@ -147,6 +145,10 @@ const Rows = styled.div`
 
 const PrayNum = styled.div`
   font-size: 16px;
+`;
+
+const ColorText = styled.span`
+  color: ${theme.palette.color.yellow};
 `;
 
 const Pray = styled.div``;
@@ -200,15 +202,15 @@ export default function Room() {
 
   console.log("roomInfo", roomInfo);
 
-  // const { data: rooms } = useQuery(
-  //   ["getOneRoomInfo"],
-  //   () => getOneRoomInfo(roomId, userId).then((response) => response.data),
-  //   {
-  //     onSuccess: (data) => {
-  //       console.log("getMyRoomList", data);
-  //     },
-  //   }
-  // );
+  const { data: roomPray } = useQuery(
+    ["getRoomPray"],
+    () => getRoomPray(roomId, userId).then((response) => response.data),
+    {
+      onSuccess: (data) => {
+        console.log("getRoomPray", data);
+      },
+    }
+  );
 
   return (
     <>
@@ -218,7 +220,10 @@ export default function Room() {
         <RoomInfo roomInfo={roomInfo} />
         <Counts>
           <Rows>
-            <PrayNum>{rooms?.praiseCount}개의 기도제목이 올라왔어요 </PrayNum>
+            <PrayNum>
+              <ColorText> {roomPray?.totalPrayers}</ColorText>개의 기도제목이
+              올라왔어요
+            </PrayNum>
             <Rows>
               <MemberListDialog
                 roomId={roomId}
@@ -231,12 +236,13 @@ export default function Room() {
           <Light isOn={roomInfo?.lastClickedToday} />
         </Counts>
         <Pray>
-          {rooms?.praises.map((day) => (
-            <Day>
-              <DateDivider> {day.date} </DateDivider>
-              {day.praise.map((pray) => (
-                <PraiseCard pray={pray} />
-              ))}
+          {Object.entries(roomPray?.prayers || {}).map(([date, dayPrayers]) => (
+            <Day key={date}>
+              <DateDivider> {date} </DateDivider>
+              {Array.isArray(dayPrayers) &&
+                dayPrayers.map((pray: Iprayer) => (
+                  <PraiseCard key={pray.pid} pray={pray} />
+                ))}
             </Day>
           ))}
         </Pray>

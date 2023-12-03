@@ -1,19 +1,15 @@
 import styled from "styled-components";
 import theme from "../theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import prayOff from "../imgs/prayOff.png";
 import prayOn from "../imgs/prayOn.png";
 import EditPrayDialog from "./edit-pray-dialog";
 import DeletePrayDialog from "./delete-pray-dialog";
-
-interface Pray {
-  pid: number;
-  name: string;
-  praiseContent: string;
-  Dday: number;
-  isMine: boolean;
-}
+import { Iprayer } from "../types/type";
+import axiosInstance from "../axios";
+import { useRecoilValue } from "recoil";
+import { UserIdState } from "../store/atom";
 
 const Container = styled.div`
   background-color: ${theme.palette.color.gray7};
@@ -51,25 +47,36 @@ const Btn = styled.div`
 `;
 
 const Praied = styled.img`
-  width: 120px;
+  width: 100px;
 `;
 
-export default function PraiseCard({ pray }: { pray: Pray }) {
+export default function PraiseCard({ pray }: { pray: Iprayer }) {
   const [prayed, setPrayed] = useState(false);
+  const userId = useRecoilValue(UserIdState);
 
   const togglePrayed = () => {
     setPrayed(!prayed);
+
+    const response = axiosInstance.post(
+      `/prayers/${pray?.pid}/user/${userId}/pray-together`
+    );
+
+    return response;
   };
+
+  useEffect(() => {
+    setPrayed(pray.likes);
+  }, [pray.likes]);
   return (
     <>
       <Container>
         <Rows>
           <Name>{pray.name}</Name>
-          <Top>D-{pray.Dday}</Top>
+          <Top>D-{pray.dday}</Top>
         </Rows>
         <Body>{pray.praiseContent}</Body>
         <Rows>
-          {pray.isMine ? (
+          {pray.mine ? (
             <Btn>
               <DeletePrayDialog prayId={pray.pid} />
               <EditPrayDialog pray={pray} />

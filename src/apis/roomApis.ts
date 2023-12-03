@@ -1,5 +1,12 @@
 import axiosInstance from "../axios";
 
+export const getRoomPray = async (roomId: string, userId: string) => {
+  const response = await axiosInstance.get(
+    `/room/${roomId}/prayers/user/${userId}`
+  );
+  return response;
+};
+
 export const turnLightOn = async (roomId: string, userId: number) => {
   const response = await axiosInstance.patch(
     `rooms/${roomId}/user/${userId}/click`
