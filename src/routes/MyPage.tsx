@@ -2,57 +2,12 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import theme from "../theme";
 import PraiseCard from "../components/PraiseCard";
-
-const myInfo = {
-  roomName: "한동대학교 기도방",
-  roomPpl: 3,
-  createDate: "2021-09-01",
-  praiseCount: 5,
-  todayCount: 2,
-  date: "2021/10/29",
-  praise: [
-    {
-      pid: 6,
-      name: "김한동",
-      praiseContent:
-        "작은 일에도 감사할 줄 아는 마음을 가지길 바라요. 매일 감사하는 하루하루 되길.",
-      Dday: 14,
-      isMine: true,
-    },
-    {
-      pid: 7,
-      name: "김한동",
-      praiseContent:
-        "최근 힘들었던 일들이 있었어요. 그럼에도 불구하고 희망을 잃지 않길 기원합니다.",
-      Dday: 13,
-      isMine: true,
-    },
-    {
-      pid: 8,
-      name: "김한동",
-      praiseContent:
-        "신앙의 길에서 매번 새로운 가르침을 받게 되길 바랍니다. 하나님의 뜻을 찾아가는 여정이 되길.",
-      Dday: 19,
-      isMine: true,
-    },
-    {
-      pid: 9,
-      name: "김한동",
-      praiseContent:
-        "앞으로의 여정에서도 굳건한 믿음으로 지키며 살아가길 바란다.",
-      Dday: 18,
-      isMine: true,
-    },
-    {
-      pid: 10,
-      name: "김한동",
-      praiseContent:
-        "새로운 시작을 앞두고 있어요. 두려움 없이 도전하고, 좋은 결과를 이루기를 바랍니다.",
-      Dday: 12,
-      isMine: true,
-    },
-  ],
-};
+import { useQuery } from "react-query";
+import { getMyPray } from "../apis/apis";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { UserIdState, isPrayUpdatedState } from "../store/atom";
+import { useEffect } from "react";
+import { Iprayer } from "../types/type";
 
 const Container = styled.div`
   width: 100%;
@@ -60,12 +15,14 @@ const Container = styled.div`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+`;
+
+const HeaderBlank = styled.div`
+  height: 60px;
 `;
 
 const Top = styled.div`
   display: flex;
-  /* grid-template-columns: 1fr 1fr; */
   gap: 20px;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -103,12 +60,13 @@ const DateDivider = styled.div`
   position: relative;
   padding-left: 10%;
   color: ${theme.palette.color.gray3};
+  font-size: 12px;
 
   &:before,
   &:after {
     content: "";
     position: absolute;
-    top: 50%;
+    top: 40%;
     height: 1px;
     background-color: ${theme.palette.color.gray3};
   }
@@ -119,7 +77,7 @@ const DateDivider = styled.div`
   }
 
   &:after {
-    left: calc(30% + 10px);
+    left: calc(25% + 10px);
     right: 0;
   }
 `;
@@ -129,22 +87,31 @@ const Day = styled.div`
 `;
 
 export default function MyPage() {
-  //   const [currentDate, setCurrentDate] = useState(new Date(roomInfo.date));
+  const userId = useRecoilValue(UserIdState);
+  const [isPrayUpdated, setIsPrayUpdated] = useRecoilState(isPrayUpdatedState);
 
-  //   const { isLoading, data: roomInfo } = useQuery(
-  //     ['OneQuestion', getRoomInfo],
-  //     () => getRoomInfo(roomId).then(response => response.data),
-  //     {
-  //       onSuccess: data => {
-  //         console.log('GetAllCategory', data);
-  //       },
-  //       refetchInterval: 500,
-  //     },
-  //   );
+  const { data: myPray, refetch } = useQuery(
+    ["getMyPray"],
+    () => getMyPray(userId).then((response) => response.data),
+    {
+      onSuccess: (data) => {
+        console.log("getMyPray", data);
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (isPrayUpdated) {
+      refetch().then(() => {
+        setIsPrayUpdated(false);
+      });
+    }
+  }, [isPrayUpdated, refetch, setIsPrayUpdated]);
 
   return (
     <>
       <Header />
+      <HeaderBlank />
       <Container>
         <Top>
           <div>
@@ -153,16 +120,19 @@ export default function MyPage() {
         </Top>
         <Counts>
           <Rows>
-            <PrayNum>{myInfo.praiseCount}개의 기도제목을 공유했어요</PrayNum>
+            <PrayNum>{myPray?.totalPrayers}개의 기도제목을 공유했어요</PrayNum>
           </Rows>
         </Counts>
         <Pray>
-          <Day>
-            <DateDivider> {myInfo.date} </DateDivider>
-            {myInfo.praise.map((pray) => (
-              <PraiseCard pray={pray} />
-            ))}
-          </Day>
+          {Object.entries(myPray?.prayers || {}).map(([date, dayPrayers]) => (
+            <Day key={date}>
+              <DateDivider> {date} </DateDivider>
+              {Array.isArray(dayPrayers) &&
+                dayPrayers.map((pray: Iprayer) => (
+                  <PraiseCard key={pray.pid} pray={pray} />
+                ))}
+            </Day>
+          ))}
         </Pray>
       </Container>
     </>
