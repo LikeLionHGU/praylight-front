@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import theme from "../theme";
 import PraiseCard from "../components/PraiseCard";
 import Light from "../components/Light";
@@ -8,8 +8,13 @@ import AddPrayDialog from "../components/add-pray-dialog";
 import MemberListDialog from "../components/member-list-dialog";
 import CalendarDialog from "../components/calendar-dialog";
 import { useQuery } from "react-query";
+import { getOneRoomInfo } from "../apis/apis";
+import { useRecoilValue } from "recoil";
+import { UserIdState } from "../store/atom";
+import { Iroom } from "../types/type";
+import RoomInfo from "../components/RoomInfo";
 
-const roomInfo = {
+const rooms = {
   roomName: "한동대학교 기도방",
   roomPpl: 3,
   createDate: "2021-09-01",
@@ -113,10 +118,6 @@ const roomInfo = {
   ],
 };
 
-interface RouteParams {
-  roomId: string;
-}
-
 const Container = styled.div`
   width: 100%;
   background-color: black;
@@ -128,24 +129,6 @@ const Container = styled.div`
 
 const HeaderBlank = styled.div`
   height: 60px;
-`;
-
-const Top = styled.div`
-  display: flex;
-  gap: 20px;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-const Title = styled.div`
-  font-size: 20px;
-  font-weight: bold;
-`;
-
-const Ppl = styled.div`
-  color: ${theme.palette.color.gray4};
-  font-size: 12px;
-  padding: 5px 0px;
 `;
 
 const Counts = styled.div`
@@ -201,12 +184,25 @@ const Day = styled.div`
   padding: 5px 0px;
 `;
 
+interface RouteParams {
+  roomId: string;
+}
+interface LocationState {
+  roomInfo: Iroom;
+}
+
 export default function Room() {
   const { roomId } = useParams<RouteParams>();
+  const userId = useRecoilValue(UserIdState);
+
+  const location = useLocation<LocationState>();
+  const { roomInfo } = location.state;
+
+  console.log("roomInfo", roomInfo);
 
   // const { data: rooms } = useQuery(
-  //   ["getMyRoomList"],
-  //   () => getRoomInfo().then((response) => response.data),
+  //   ["getOneRoomInfo"],
+  //   () => getOneRoomInfo(roomId, userId).then((response) => response.data),
   //   {
   //     onSuccess: (data) => {
   //       console.log("getMyRoomList", data);
@@ -219,25 +215,19 @@ export default function Room() {
       <Header />
       <HeaderBlank />
       <Container>
-        <Top>
-          <div>
-            <Title> {roomInfo.roomName} </Title>
-            <Ppl> {roomInfo.roomPpl}명 참여 </Ppl>
-          </div>
-          <AddPrayDialog currentRoom="AAA" />
-        </Top>
+        <RoomInfo roomInfo={roomInfo} />
         <Counts>
           <Rows>
-            <PrayNum>{roomInfo.praiseCount}개의 기도제목이 올라왔어요 </PrayNum>
+            <PrayNum>{rooms?.praiseCount}개의 기도제목이 올라왔어요 </PrayNum>
             <Rows>
-              <MemberListDialog roomId={roomId} />
-              <CalendarDialog roomId={roomId} />
+              <MemberListDialog roomId={roomId} title={roomInfo?.title} />
+              <CalendarDialog roomId={roomId} roomInfo={roomInfo} />
             </Rows>
           </Rows>
-          <Light ppl={roomInfo.todayCount} />
+          <Light isOn={roomInfo?.lastClickedToday} />
         </Counts>
         <Pray>
-          {roomInfo.praises.map((day) => (
+          {rooms?.praises.map((day) => (
             <Day>
               <DateDivider> {day.date} </DateDivider>
               {day.praise.map((pray) => (
