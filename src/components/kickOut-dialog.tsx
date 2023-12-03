@@ -60,13 +60,13 @@ const Icon = styled.img`
 
 interface IKickOutDialogProps {
   member: ImemberList;
-  roomName: string;
+  title: string;
   onClose: () => void;
 }
 
 export default function KickOutDialog({
   member,
-  roomName,
+  title,
   onClose,
 }: IKickOutDialogProps) {
   const [open, setOpen] = React.useState(false);
@@ -110,7 +110,7 @@ export default function KickOutDialog({
               fontSize: "16px",
             }}
           >
-            {member.name}을 {roomName}에서 퇴장시키시겠습니까?
+            {member.name}을 {title}에서 퇴장시키시겠습니까?
           </DialogContentText>
         </DialogContent>
       </Modal>
