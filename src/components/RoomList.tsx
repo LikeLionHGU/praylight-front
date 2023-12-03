@@ -1,52 +1,11 @@
 import styled from "styled-components";
 import RoomCard from "./RoomCard";
 import { Link } from "react-router-dom";
-
-const RoomInfo = [
-  {
-    rId: 1,
-    roomName: "한동대학교 전체 기도방",
-    roomPpl: 312,
-    createDate: "2023-09-15",
-  },
-  {
-    rId: 2,
-    roomName: "프레이즈팀 기도방",
-    roomPpl: 76,
-    createDate: "2022-08-03",
-  },
-  {
-    rId: 3,
-    roomName: "포항 교회 기도방",
-    roomPpl: 43,
-    createDate: "2023-05-15",
-  },
-  {
-    rId: 4,
-    roomName: "한동오케스트라 기도방",
-    roomPpl: 24,
-    createDate: "2023-07-02",
-  },
-  {
-    rId: 5,
-    roomName: "CSEE 기도방",
-    roomPpl: 140,
-    createDate: "2021-09-01",
-  },
-  {
-    rId: 6,
-    roomName: "CCC 기도방",
-    roomPpl: 43,
-    createDate: "2022-08-03",
-  },
-];
-
-interface Iroom {
-  rId: number;
-  roomName: string;
-  roomPpl: number;
-  createDate: string;
-}
+import { useQuery } from "react-query";
+import { getMyRoomList } from "../apis/apis";
+import { useRecoilValue } from "recoil";
+import { UserIdState } from "../store/atom";
+import { Iroom } from "../types/type";
 
 const Rooms = styled.div`
   display: flex;
@@ -56,10 +15,21 @@ const Rooms = styled.div`
 `;
 
 export default function RoomList() {
+  const userId = useRecoilValue(UserIdState);
+  const { data: rooms } = useQuery(
+    ["getMyRoomList"],
+    () => getMyRoomList(userId).then((response) => response.data),
+    {
+      onSuccess: (data) => {
+        console.log("getMyRoomList", data);
+      },
+    }
+  );
+
   return (
     <>
       <Rooms>
-        {RoomInfo.map((room: Iroom) => (
+        {rooms?.map((room: Iroom) => (
           <Link to={`/room/${room.rId}`}>
             <RoomCard key={room?.rId} room={room} />
           </Link>

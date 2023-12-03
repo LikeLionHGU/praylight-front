@@ -1,13 +1,7 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import theme from "../theme";
-
-interface Iroom {
-  rId: number;
-  roomName: string;
-  roomPpl: number;
-  createDate: string;
-}
+import { Iroom } from "../types/type";
 
 const Container = styled.div`
   border: 1px solid white;
@@ -41,7 +35,7 @@ export default function RoomCard({ room }: { room: Iroom }) {
   const [formattedDate, setFormattedDate] = useState("");
 
   useEffect(() => {
-    const createDate = new Date(room.createDate);
+    const createDate = new Date(room.lastActivityDate);
     const currentDate = new Date();
 
     const timeDifference = currentDate.getTime() - createDate.getTime();
@@ -61,13 +55,13 @@ export default function RoomCard({ room }: { room: Iroom }) {
     }
 
     setFormattedDate(formattedDateStr);
-  }, [room.createDate]);
+  }, [room.lastActivityDate]);
 
   return (
     <>
       <Container>
         <div>
-          <Name>{room.roomName} </Name>
+          <Name>{room.title} </Name>
           <PplNum> {room.roomPpl}명 참여 </PplNum>
         </div>
         <DateAgo> {formattedDate} </DateAgo>
