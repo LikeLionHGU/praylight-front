@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import lightOn from "../imgs/lightOn.png";
 import lightOff from "../imgs/lightOff.png";
 import theme from "../theme";
+import { useParams } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { UserIdState } from "../store/atom";
+import { getLightStatus, turnLightOn } from "../apis/roomApis";
+import { useQuery } from "react-query";
 
 const Container = styled.div`
   height: 160px;
@@ -32,11 +37,32 @@ const Ppl = styled.div`
   color: ${theme.palette.color.gray3};
 `;
 
-export default function Light({ ppl }: { ppl: number }) {
+interface RouteParams {
+  roomId: string;
+}
+
+export default function Light({ isOn }: { isOn: boolean }) {
   const [light, setLight] = useState(false);
+  const { roomId } = useParams<RouteParams>();
+  const userId = useRecoilValue(UserIdState);
+
+  useEffect(() => {
+    setLight(isOn);
+  }, [isOn]);
+
+  const { data: ppl } = useQuery(
+    ["getLightStatus", roomId],
+    () => getLightStatus(roomId).then((response) => response.data),
+    {
+      onSuccess: (data) => {
+        console.log("getLightStatus", data);
+      },
+    }
+  );
 
   const toggleLight = () => {
     setLight(true);
+    turnLightOn(roomId, userId);
   };
 
   return (
