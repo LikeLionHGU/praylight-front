@@ -6,18 +6,16 @@ export const getMyRoomList = async (userId: string) => {
   return response;
 };
 
-export const getRoomInfo = async (roomId: string, memberId: number) => {
-  memberId = 1;
-  const response = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/room/${roomId}/${memberId}`
-  );
+export const getOneRoomInfo = async (roomId: string, userId: number) => {
+  // const response = await axiosInstance.get(`/room/${roomId}/${userId}`);
+  const response = await axiosInstance.get(`/room/${roomId}/prayers`);
   return response;
 };
 
-export const getMyPrayList = async (memberId: number) => {
-  memberId = 1;
+export const getMyPrayList = async (userId: number) => {
+  userId = 1;
   const response = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/pray/${memberId}`
+    `${process.env.REACT_APP_BASE_URL}/pray/${userId}`
   );
   return response;
 };
