@@ -12,6 +12,7 @@ const Container = styled.div`
   align-items: center;
   padding: 0 20px;
   border-bottom: 1px solid #e5e5e5;
+  position: fixed;
 `;
 
 const Img = styled.img`
