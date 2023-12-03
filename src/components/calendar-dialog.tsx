@@ -9,6 +9,7 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { SlCalender } from "react-icons/sl";
 import { useHistory } from "react-router-dom";
 import { Dayjs } from "dayjs";
+import { Iroom } from "../types/type";
 
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
@@ -38,10 +39,16 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default function CalendarDialog({ roomId }: { roomId: string }) {
+export default function CalendarDialog({
+  roomId,
+  roomInfo,
+}: {
+  roomId: string;
+  roomInfo: Iroom;
+}) {
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
-  const [date, setDate] = React.useState<string | null>(null);
+  const [date, setDate] = React.useState<String | null>(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -53,7 +60,7 @@ export default function CalendarDialog({ roomId }: { roomId: string }) {
 
   const onSubmit = (values: any) => {
     console.log(date);
-    history.push(`/room/${roomId}/${date}`);
+    history.push(`/room/${roomId}/${date}`, { roomInfo: roomInfo });
     console.log(values);
   };
 
@@ -76,13 +83,13 @@ export default function CalendarDialog({ roomId }: { roomId: string }) {
             <DateCalendar
               onChange={(newDate: Dayjs | null) => {
                 if (newDate) {
-                  setDate(newDate.format("YYYY-MM-DD"));
+                  const formattedDate = newDate.format("YYYY-MM-DDTHH:mm:ss");
+                  setDate(formattedDate);
                 }
               }}
               sx={{
                 width: "100%",
                 "& .MuiTypography-root": {
-                  // This targets all Typography elements which are used for text inside the calendar.
                   color: "white !important",
                 },
                 "& .MuiButtonBase-root": { color: "white !important" },
@@ -90,7 +97,6 @@ export default function CalendarDialog({ roomId }: { roomId: string }) {
                   backgroundColor: `${theme.palette.color.yellow} !important`,
                   color: "black !important",
                 },
-                // Add more custom styles here if needed
               }}
             />
           </LocalizationProvider>
