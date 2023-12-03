@@ -1,17 +1,13 @@
-// eslint-disable-next-line no-unused-vars
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
 import { useHistory } from "react-router-dom";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { IsLoginState, UserIdState } from "../store/atom";
 import axiosInstance from "../axios";
 
 export default function GoogleButton() {
-  // eslint-disable-next-line no-unused-vars
   const setLogin = useSetRecoilState(IsLoginState);
-  // const setUserId = useSetRecoilState(UserIdState);
-  // const userId = localStorage.getItem("UserIdState");
-  const setUserId = useRecoilState(UserIdState);
+  const setUserId = useSetRecoilState(UserIdState);
 
   let history = useHistory();
 

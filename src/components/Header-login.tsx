@@ -31,7 +31,9 @@ export default function HeaderLogin() {
         <Link to="/">
           <Img src={logo} />
         </Link>
-        <Btn>Login</Btn>
+        <Link to="/login">
+          <Btn>Login</Btn>
+        </Link>
       </Container>
     </>
   );
