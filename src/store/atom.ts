@@ -19,12 +19,7 @@ export const UserIdState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const RoomList = atom({
-  key: "RoomList",
-  default: [
-    {
-      id: 1,
-      name: "한동대 전체 기도방",
-    },
-  ],
+export const isPrayUpdatedState = atom({
+  key: "isPrayUpdatedState",
+  default: false,
 });

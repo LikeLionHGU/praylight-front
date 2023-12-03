@@ -6,9 +6,14 @@ import MemberListDialog from "../components/member-list-dialog";
 import CalendarDialog from "../components/calendar-dialog";
 import homeIcon from "../imgs/homeIcon.png";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RoomInfo from "../components/RoomInfo";
-import { Iroom } from "../types/type";
+import { Iprayer, Iroom } from "../types/type";
+import { useQuery } from "react-query";
+import { getDatePrayList } from "../apis/roomApis";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { UserIdState, isPrayUpdatedState } from "../store/atom";
+import PraiseCard from "../components/PraiseCard";
 
 interface RouteParams {
   roomId: string;
@@ -91,9 +96,10 @@ interface LocationState {
 export default function DayPray() {
   const { roomId, date } = useParams<RouteParams>();
   const [currentDate, setCurrentDate] = useState(new Date(date));
-
+  const [isPrayUpdated, setIsPrayUpdated] = useRecoilState(isPrayUpdatedState);
   const location = useLocation<LocationState>();
   const { roomInfo } = location.state;
+  const userId = useRecoilValue(UserIdState);
 
   const prevDay = () => {
     setCurrentDate((prevDate) => {
@@ -115,16 +121,33 @@ export default function DayPray() {
     currentDate.getMonth() + 1
   }월 ${currentDate.getDate()}일`;
 
-  //   const { isLoading, data: roomInfo } = useQuery(
-  //     ['OneQuestion', getRoomInfo],
-  //     () => getRoomInfo(roomId).then(response => response.data),
-  //     {
-  //       onSuccess: data => {
-  //         console.log('GetAllCategory', data);
-  //       },
-  //       refetchInterval: 500,
-  //     },
-  //   );
+  const barDate = `${currentDate.getFullYear()}-${
+    currentDate.getMonth() + 1
+  }-${currentDate.getDate()}`;
+
+  const formattedCurrentDate = currentDate.toISOString();
+
+  const { data: roomPray, refetch } = useQuery(
+    ["getDatePrayList", formattedCurrentDate],
+    () =>
+      getDatePrayList(roomId, userId, formattedCurrentDate).then(
+        (response) => response.data
+      ),
+    {
+      onSuccess: (data) => {
+        console.log("sgetDatePrayList", data);
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (isPrayUpdated || currentDate) {
+      refetch().then(() => {
+        // refetch가 완료되면 상태를 업데이트합니다.
+        setIsPrayUpdated(false);
+      });
+    }
+  }, [isPrayUpdated, refetch, setIsPrayUpdated, currentDate]);
 
   return (
     <>
@@ -134,14 +157,21 @@ export default function DayPray() {
         <RoomInfo roomInfo={roomInfo} />
         <Counts>
           <Rows>
-            {/* <PrayNum>{roomInfo.praiseCount}개의 기도제목이 올라왔어요 </PrayNum> */}
+            <PrayNum>
+              {roomPray?.totalPrayers}개의 기도제목이 올라왔어요{" "}
+            </PrayNum>
             <Rows>
-              <Link to="/home">
+              <Link
+                to={{
+                  pathname: `/room/${roomId}`,
+                  state: { roomInfo: roomInfo },
+                }}
+              >
                 <Icon src={homeIcon} alt="home" />
               </Link>
               <MemberListDialog
                 roomId={roomId}
-                title={roomInfo.title}
+                title={roomInfo?.title}
                 code={roomInfo?.code}
               />
               <CalendarDialog roomId={roomId} roomInfo={roomInfo} />
@@ -155,14 +185,17 @@ export default function DayPray() {
             <div />
           </Rows>
         </Counts>
-        {/* <Pray>
-          <Day>
-            <DateDivider> {roomInfo.date} </DateDivider>
-            {roomInfo.praise.map((pray) => (
-              <PraiseCard pray={pray} />
-            ))}
-          </Day>
-        </Pray> */}
+        <Pray>
+          <DateDivider> {barDate} </DateDivider>
+          {Object.entries(roomPray || {}).map(([pray, dayPrayers]) => (
+            <Day key={pray}>
+              {Array.isArray(dayPrayers) &&
+                dayPrayers.map((pray: Iprayer) => (
+                  <PraiseCard key={pray?.pid} pray={pray} />
+                ))}
+            </Day>
+          ))}
+        </Pray>
       </Container>
     </>
   );
