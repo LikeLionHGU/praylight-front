@@ -23,3 +23,8 @@ export const isPrayUpdatedState = atom({
   key: "isPrayUpdatedState",
   default: false,
 });
+
+export const isAddedState = atom({
+  key: "isAddedState",
+  default: false,
+});
