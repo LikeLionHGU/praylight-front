@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Header from "../components/Header";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import theme from "../theme";
 import PraiseCard from "../components/PraiseCard";
 import AddPrayDialog from "../components/add-pray-dialog";
@@ -9,9 +9,11 @@ import CalendarDialog from "../components/calendar-dialog";
 import homeIcon from "../imgs/homeIcon.png";
 import { HiOutlineChevronLeft, HiOutlineChevronRight } from "react-icons/hi";
 import { useState } from "react";
+import RoomInfo from "../components/RoomInfo";
+import { Iroom } from "../types/type";
 
 const roomInfo = {
-  roomName: "한동대학교 기도방",
+  title: "한동대학교 기도방",
   roomPpl: 3,
   createDate: "2021-09-01",
   praiseCount: 5,
@@ -63,6 +65,7 @@ const roomInfo = {
 
 interface RouteParams {
   roomId: string;
+  date: string;
 }
 
 const HeaderBlank = styled.div`
@@ -152,9 +155,16 @@ const Icon = styled.img`
   width: 22px;
 `;
 
+interface LocationState {
+  roomInfo: Iroom;
+}
+
 export default function DayPray() {
-  const { roomId } = useParams<RouteParams>();
-  const [currentDate, setCurrentDate] = useState(new Date(roomInfo.date));
+  const { roomId, date } = useParams<RouteParams>();
+  const [currentDate, setCurrentDate] = useState(new Date(date));
+
+  const location = useLocation<LocationState>();
+  const { roomInfo } = location.state;
 
   const prevDay = () => {
     setCurrentDate((prevDate) => {
@@ -192,22 +202,16 @@ export default function DayPray() {
       <Header />
       <HeaderBlank />
       <Container>
-        <Top>
-          <div>
-            <Title> {roomInfo.roomName} </Title>
-            <Ppl> {roomInfo.roomPpl}명 참여 </Ppl>
-          </div>
-          <AddPrayDialog currentRoom="AAA" />
-        </Top>
+        <RoomInfo roomInfo={roomInfo} />
         <Counts>
           <Rows>
-            <PrayNum>{roomInfo.praiseCount}개의 기도제목이 올라왔어요 </PrayNum>
+            {/* <PrayNum>{roomInfo.praiseCount}개의 기도제목이 올라왔어요 </PrayNum> */}
             <Rows>
               <Link to="/home">
                 <Icon src={homeIcon} alt="home" />
               </Link>
-              <MemberListDialog roomId={roomId} />
-              <CalendarDialog roomId={roomId} />
+              <MemberListDialog roomId={roomId} title={roomInfo.title} />
+              <CalendarDialog roomId={roomId} roomInfo={roomInfo} />
             </Rows>
           </Rows>
           <Rows>
@@ -218,14 +222,14 @@ export default function DayPray() {
             <div />
           </Rows>
         </Counts>
-        <Pray>
+        {/* <Pray>
           <Day>
             <DateDivider> {roomInfo.date} </DateDivider>
             {roomInfo.praise.map((pray) => (
               <PraiseCard pray={pray} />
             ))}
           </Day>
-        </Pray>
+        </Pray> */}
       </Container>
     </>
   );
