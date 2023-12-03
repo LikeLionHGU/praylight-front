@@ -8,12 +8,14 @@ export type Iroom = {
 };
 
 export type Iprayer = {
-  id: number;
+  pid: number;
   name: string;
-  pray: string;
-  prayDate: string;
-  prayCount: number;
-  roomId: number;
+  praiseContent: string;
+  likes: boolean;
+  startDate: string;
+  anonymous: boolean;
+  dday: number;
+  mine: true;
 };
 
 export type Iuser = {
