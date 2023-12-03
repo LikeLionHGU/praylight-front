@@ -3,7 +3,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Button } from "antd";
 import theme from "../theme";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
@@ -73,13 +73,10 @@ export default function AddNewRoomDialog() {
     setOpen(true);
   };
 
-  const handleOk = () => {
-    setOpen(false);
-    setNewModalOpen(true);
-  };
-
   const onSubmit = (values: any) => {
     console.log(values);
+    setOpen(false);
+    setNewModalOpen(true);
   };
 
   async function copyToClipboard(text: string) {
@@ -98,11 +95,8 @@ export default function AddNewRoomDialog() {
       <Modal
         open={open}
         centered
-        onOk={handleOk}
-        onCancel={() => setOpen(false)}
         style={{ width: "500px" }}
-        okText="추가"
-        cancelText="취소"
+        footer={false}
         wrapClassName="custom-modal"
       >
         <DialogTitle sx={{ padding: "10px 0px" }}>
@@ -122,8 +116,38 @@ export default function AddNewRoomDialog() {
               }}
             />
           </Form.Item>
+          <Form.Item>
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button
+                id="cancel-button"
+                onClick={() => setOpen(false)}
+                style={{
+                  marginRight: "10px",
+                  fontWeight: "bold",
+                  backgroundColor: theme.palette.color.gray6,
+                  border: "none",
+                  color: "white",
+                }}
+              >
+                취소
+              </Button>
+              <Button
+                id="submit-button"
+                htmlType="submit"
+                style={{
+                  color: theme.palette.color.yellow,
+                  fontWeight: "bold",
+                  backgroundColor: theme.palette.color.gray6,
+                  border: "none",
+                }}
+              >
+                확인
+              </Button>
+            </div>
+          </Form.Item>
         </Form>
       </Modal>
+
       <Modal
         open={newModalOpen}
         centered

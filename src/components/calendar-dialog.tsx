@@ -17,8 +17,24 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .custom-modal .ant-modal-footer .ant-btn-primary {
-    background-color: black; // 확인(submit) 버튼의 배경색을 회색으로 설정
-    border-color: white; // 확인(submit) 버튼의 테두리 색상을 회색으로 설정
+    border: none; // Removes border from both buttons
+    box-shadow: none !important;
+  }
+
+  .custom-modal .ant-modal-footer .ant-btn-primary {
+    color: ${theme.palette.color.yellow} !important; // Sets text color of the Create button to yellow
+    background: none !important; // Removes background color
+    border: none; // Removes border
+    box-shadow: none !important;
+    font-weight: bold;
+  }
+  
+  .custom-modal .ant-modal-footer .ant-btn-default {
+    color: white !important; // Sets text color of the Cancel button to white
+    background: none !important; // Removes background color
+    border: none; // Removes border
+    box-shadow: none !important;
+    font-weight: bold;
   }
 `;
 

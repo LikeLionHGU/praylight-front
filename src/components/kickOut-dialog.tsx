@@ -76,6 +76,12 @@ export default function KickOutDialog({
     onClose();
   };
 
+  const handleRemove = () => {
+    setOpen(false);
+    console.log("퇴장");
+    console.log(member.name);
+  };
+
   return (
     <React.Fragment>
       <GlobalStyle />
@@ -88,7 +94,7 @@ export default function KickOutDialog({
         centered
         style={{ width: "500px" }}
         wrapClassName="custom-modal"
-        onOk={() => setOpen(false)}
+        onOk={handleRemove}
         onCancel={() => setOpen(false)}
         okText="확인"
         cancelText="취소"

@@ -9,8 +9,6 @@ import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import theme from "../theme";
 import { useRecoilValue } from "recoil";
-import { MemberIdState } from "../store/atom";
-import axios from "axios";
 
 const plainOptions = [
   "한동대 전체 기도방",
@@ -93,6 +91,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Title = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+`;
+
 const AddPraise = styled.div`
   display: flex;
   justify-content: center;
@@ -120,11 +124,12 @@ export default function AddPrayDialog({
 }: {
   currentRoom: string;
 }) {
-  const memberId = useRecoilValue(MemberIdState);
+  // const memberId = useRecoilValue(MemberIdState);
   const [open, setOpen] = React.useState(false);
   const [checkedList, setCheckedList] = React.useState<CheckboxValueType[]>([
     currentRoom,
   ]);
+  const [anony, setAnony] = React.useState(false);
   // const roomlist = useRecoilValue(RoomList);
 
   const checkAll = plainOptions.length === checkedList.length;
@@ -137,15 +142,19 @@ export default function AddPrayDialog({
 
   const onSubmit = async (values: any) => {
     setOpen(false); // Close the modal
-    const response = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/room/prayer`, // 템플릿 리터럴 사용
-      {
-        ...values,
-        authorId: memberId,
-      }
-    );
+    console.log(values);
+    console.log(checkedList);
+    console.log(anony);
 
-    return response;
+    // const response = await axios.post(
+    //   `${process.env.REACT_APP_BASE_URL}/room/prayer`, // 템플릿 리터럴 사용
+    //   {
+    //     ...values,
+    //     authorId: memberId,
+    //   }
+    // );
+
+    // return response;
   };
 
   const onChange = (list: CheckboxValueType[]) => {
@@ -158,6 +167,7 @@ export default function AddPrayDialog({
 
   const onChangeAnony = (e: CheckboxChangeEvent) => {
     console.log(`checked = ${e.target.checked}`);
+    setAnony(e.target.checked);
   };
 
   return (
@@ -171,20 +181,35 @@ export default function AddPrayDialog({
         footer={false}
         wrapClassName="custom-modal"
       >
-        <DialogTitle>새 기도제목 작성</DialogTitle>
-        <DialogContent>
+        <Title>새 기도제목 작성</Title>
+        <div style={{ padding: "none !important" }}>
           <Form name="productUpload" onFinish={onSubmit}>
-            <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
+            <DialogContentText
+              style={{
+                color: theme.palette.color.gray2,
+                padding: "5px 0px",
+                fontWeight: "300",
+              }}
+            >
               기도할 내용을 입력해 주세요.
             </DialogContentText>
             <Form.Item name="pray_content">
               <TextArea
                 placeholder="내용은 공백포함 150자까지 입력 가능합니다."
                 rows={4}
-                style={{ backgroundColor: theme.palette.color.gray1 }}
+                style={{
+                  backgroundColor: theme.palette.color.gray1,
+                  fontWeight: "300",
+                }}
               />
             </Form.Item>
-            <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
+            <DialogContentText
+              style={{
+                color: theme.palette.color.gray2,
+                padding: "5px 0px",
+                fontWeight: "300",
+              }}
+            >
               기도제목의 기간을 설정해 주세요. (최대 100일)
             </DialogContentText>
             <Form.Item name="pray_day">
@@ -192,7 +217,9 @@ export default function AddPrayDialog({
                 style={{ backgroundColor: theme.palette.color.gray1 }}
               />
             </Form.Item>
-            <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
+            <DialogContentText
+              style={{ color: "white", padding: "5px 0px", fontWeight: "300" }}
+            >
               기도제목을 올릴 기도방을 선택해 주세요.
             </DialogContentText>
             <Columns>
@@ -200,7 +227,7 @@ export default function AddPrayDialog({
                 indeterminate={indeterminate}
                 onChange={onCheckAllChange}
                 checked={checkAll}
-                style={{ color: "white" }}
+                style={{ color: "white", backgroundColor: "transparent" }}
               >
                 전체 선택
               </Checkbox>
@@ -224,33 +251,31 @@ export default function AddPrayDialog({
                   id="cancel-button"
                   onClick={() => setOpen(false)}
                   style={{
-                    border: "1px solid black",
                     marginRight: "10px",
                     fontWeight: "bold",
-                    width: "100px",
-                    borderRadius: "20px",
+                    backgroundColor: theme.palette.color.gray6,
+                    border: "none",
+                    color: "white",
                   }}
                 >
                   취소
                 </Button>
                 <Button
                   id="submit-button"
-                  size="large"
                   htmlType="submit"
                   style={{
-                    backgroundColor: "black",
-                    color: "white",
+                    color: theme.palette.color.yellow,
                     fontWeight: "bold",
-                    width: "100px",
-                    borderRadius: "20px",
+                    backgroundColor: theme.palette.color.gray6,
+                    border: "none",
                   }}
                 >
-                  완료
+                  확인
                 </Button>
               </div>
             </Form.Item>
           </Form>
-        </DialogContent>
+        </div>
       </Modal>
     </React.Fragment>
   );

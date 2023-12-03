@@ -3,7 +3,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Button } from "antd";
 import theme from "../theme";
 
 const GlobalStyle = createGlobalStyle`
@@ -97,13 +97,15 @@ export default function JoinRoomDialog() {
     setOpen(true);
   };
 
-  const handleOk = () => {
+  const onSubmit = (values: any) => {
+    console.log(values);
     setOpen(false);
     setNewModalOpen(true);
   };
 
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const handleNewRoom = () => {
+    setNewModalOpen(false);
+    console.log(room);
   };
 
   const findRoom = () => {
@@ -119,11 +121,8 @@ export default function JoinRoomDialog() {
       <Modal
         open={open}
         centered
-        onOk={handleOk}
-        onCancel={() => setOpen(false)}
         style={{ width: "500px" }}
-        okText="확인"
-        cancelText="취소"
+        footer={false}
         wrapClassName="custom-modal"
       >
         <DialogTitle sx={{ padding: "10px 0px" }}>
@@ -149,12 +148,48 @@ export default function JoinRoomDialog() {
           ) : (
             <NoFoundRoom>*존재하지 않는 코드입니다. </NoFoundRoom>
           )}
+          <Form.Item>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "20px",
+              }}
+            >
+              <Button
+                id="cancel-button"
+                onClick={() => setOpen(false)}
+                style={{
+                  marginRight: "10px",
+                  fontWeight: "bold",
+                  backgroundColor: theme.palette.color.gray6,
+                  border: "none",
+                  color: "white",
+                }}
+              >
+                취소
+              </Button>
+              <Button
+                id="submit-button"
+                htmlType="submit"
+                style={{
+                  color: theme.palette.color.yellow,
+                  fontWeight: "bold",
+                  backgroundColor: theme.palette.color.gray6,
+                  border: "none",
+                }}
+              >
+                확인
+              </Button>
+            </div>
+          </Form.Item>
         </Form>
       </Modal>
+
       <Modal
         open={newModalOpen}
         centered
-        onOk={() => setNewModalOpen(false)}
+        onOk={() => handleNewRoom()}
         onCancel={() => setNewModalOpen(false)}
         style={{ width: "500px" }}
         okText="확인"
