@@ -7,6 +7,9 @@ import { Modal, Button } from "antd";
 
 import theme from "../theme";
 import deleteIcon from "../imgs/deleteIcon.png";
+import axiosInstance from "../axios";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserIdState, isPrayUpdatedState } from "../store/atom";
 
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
@@ -48,6 +51,8 @@ const Icon = styled.img`
 
 export default function DeletePrayDialog({ prayId }: { prayId: number }) {
   const [open, setOpen] = React.useState(false);
+  const userId = useRecoilValue(UserIdState);
+  const setIsPrayUpdated = useSetRecoilState(isPrayUpdatedState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -56,6 +61,14 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
   const onSubmit = (values: any) => {
     console.log(values);
     setOpen(false);
+
+    const response = axiosInstance
+      .patch(`/prayer/${prayId}/user/${userId}/delete`)
+      .then((res) => {
+        setIsPrayUpdated(true);
+      });
+
+    return response;
   };
 
   return (
@@ -90,26 +103,25 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
               id="cancel-button"
               onClick={() => setOpen(false)}
               style={{
-                border: "1px solid black",
-                marginRight: "10px",
                 fontWeight: "bold",
-                width: "100px",
-                borderRadius: "20px",
+                fontSize: "16px",
+                backgroundColor: theme.palette.color.gray6,
+                border: "none",
+                color: "white",
               }}
             >
               취소
             </Button>
             <Button
               id="submit-button"
-              size="large"
               htmlType="submit"
               onClick={onSubmit}
               style={{
-                backgroundColor: "black",
-                color: "white",
                 fontWeight: "bold",
-                width: "100px",
-                borderRadius: "20px",
+                fontSize: "16px",
+                backgroundColor: theme.palette.color.gray6,
+                border: "none",
+                color: theme.palette.color.yellow,
               }}
             >
               삭제
