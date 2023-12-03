@@ -1,7 +1,6 @@
 import styled from "styled-components";
-// import GoogleButton from "../auth/GoogleButton";
 import Logo from "../imgs/logo.svg";
-import { Link } from "react-router-dom";
+import GoogleButton from "../auth/GoogleButton";
 
 const Container = styled.div`
   display: flex;
@@ -38,11 +37,7 @@ export default function Login() {
     <>
       <Container>
         <Img src={Logo} />
-
-        {/* <GoogleButton /> */}
-        <Link to="/home">
-          <Button> 데모 로그인 하기 </Button>
-        </Link>
+        <GoogleButton />
       </Container>
     </>
   );
