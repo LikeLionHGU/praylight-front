@@ -10,6 +10,7 @@ import Room from "./routes/Room";
 import Start from "./routes/Start";
 import DayPray from "./routes/DayPray";
 import MyPage from "./routes/MyPage";
+import PrayTogether from "./routes/PrayTogether";
 
 const Page = styled.div`
   display: flex;
@@ -64,6 +65,9 @@ function Router() {
                 </Route>
                 <Route exact path="/mypage">
                   <MyPage />
+                </Route>
+                <Route exact path="/prayTogether">
+                  <PrayTogether />
                 </Route>
               </>
             ) : (
