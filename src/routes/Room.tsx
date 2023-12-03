@@ -220,7 +220,11 @@ export default function Room() {
           <Rows>
             <PrayNum>{rooms?.praiseCount}개의 기도제목이 올라왔어요 </PrayNum>
             <Rows>
-              <MemberListDialog roomId={roomId} title={roomInfo?.title} />
+              <MemberListDialog
+                roomId={roomId}
+                title={roomInfo?.title}
+                code={roomInfo?.code}
+              />
               <CalendarDialog roomId={roomId} roomInfo={roomInfo} />
             </Rows>
           </Rows>

@@ -12,8 +12,6 @@ import { useQuery } from "react-query";
 import { getMemberList } from "../apis/roomApis";
 import { Iuser } from "../types/type";
 
-const roomCode = "123456";
-
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
     background-color: ${theme.palette.color.gray6}; // 모달의 배경색을 검정색으로 설정
@@ -42,9 +40,11 @@ const Columns = styled.div`
 export default function MemberListDialog({
   roomId,
   title,
+  code,
 }: {
   roomId: string;
   title: string;
+  code: string;
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -113,9 +113,9 @@ export default function MemberListDialog({
                 fontWeight: "bold",
               }}
             >
-              {roomCode}
+              {code}
               <ContentCopyIcon
-                onClick={() => copyToClipboard(roomCode)}
+                onClick={() => copyToClipboard(code)}
                 style={{ color: "white", marginLeft: "10px" }}
               />
             </DialogContentText>

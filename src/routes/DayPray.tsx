@@ -210,7 +210,11 @@ export default function DayPray() {
               <Link to="/home">
                 <Icon src={homeIcon} alt="home" />
               </Link>
-              <MemberListDialog roomId={roomId} title={roomInfo.title} />
+              <MemberListDialog
+                roomId={roomId}
+                title={roomInfo.title}
+                code={roomInfo?.code}
+              />
               <CalendarDialog roomId={roomId} roomInfo={roomInfo} />
             </Rows>
           </Rows>
