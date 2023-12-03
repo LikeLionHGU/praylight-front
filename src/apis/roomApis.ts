@@ -24,9 +24,13 @@ export const getMemberList = async (roomId: string) => {
   return response;
 };
 
-export const getDatePrayList = async (roomId: string, date: string) => {
+export const getDatePrayList = async (
+  roomId: string,
+  userId: number,
+  date: string
+) => {
   const response = await axiosInstance.get(
-    `/room/${roomId}/prayers/date/${date}`
+    `/room/${roomId}/user/${userId}/prayers/date/${date}`
   );
   return response;
 };
