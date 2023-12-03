@@ -62,7 +62,7 @@ export default function RoomCard({ room }: { room: Iroom }) {
       <Container>
         <div>
           <Name>{room.title} </Name>
-          <PplNum> {room.roomPpl}명 참여 </PplNum>
+          <PplNum> {room.numberOfMembers}명 참여 </PplNum>
         </div>
         <DateAgo> {formattedDate} </DateAgo>
       </Container>

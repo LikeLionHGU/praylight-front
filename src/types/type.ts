@@ -1,7 +1,7 @@
 export type Iroom = {
   id: number;
   title: string;
-  roomPpl: number;
+  numberOfMembers: number;
   code: string;
   lastActivityDate: string;
   lastClickedToday: boolean;

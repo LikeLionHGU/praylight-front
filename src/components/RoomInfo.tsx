@@ -27,7 +27,7 @@ export default function RoomInfo({ roomInfo }: { roomInfo: Iroom }) {
       <Top>
         <div>
           <Title> {roomInfo?.title} </Title>
-          <Ppl> {roomInfo?.roomPpl}명 참여 </Ppl>
+          <Ppl> {roomInfo?.numberOfMembers}명 참여 </Ppl>
         </div>
         <AddPrayDialog currentRoom="AAA" />
       </Top>
