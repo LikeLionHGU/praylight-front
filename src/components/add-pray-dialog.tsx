@@ -1,7 +1,5 @@
 import * as React from "react";
-import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
 import TextArea from "antd/es/input/TextArea";
 import { Checkbox, Form, InputNumber, Modal, Button } from "antd";
@@ -9,12 +7,11 @@ import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import theme from "../theme";
 import { useRecoilValue } from "recoil";
-
-const plainOptions = [
-  "한동대 전체 기도방",
-  "프레이즈 기도방",
-  "김호준 교수님 PRS",
-];
+import axiosInstance from "../axios";
+import { UserIdState } from "../store/atom";
+import { useQuery } from "react-query";
+import { getMyRoomList } from "../apis/apis";
+import { Iroom } from "../types/type";
 
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
@@ -124,45 +121,53 @@ export default function AddPrayDialog({
 }: {
   currentRoom: string;
 }) {
-  // const memberId = useRecoilValue(MemberIdState);
+  const userId = useRecoilValue(UserIdState);
   const [open, setOpen] = React.useState(false);
   const [checkedList, setCheckedList] = React.useState<CheckboxValueType[]>([
     currentRoom,
   ]);
   const [anony, setAnony] = React.useState(false);
-  // const roomlist = useRecoilValue(RoomList);
+  const { data: roomOptions } = useQuery(
+    ["getMyRoomList"],
+    () => getMyRoomList(userId).then((response) => response.data),
+    {
+      onSuccess: (data) => {
+        console.log("getMyRoomList", data);
+      },
+    }
+  );
 
-  const checkAll = plainOptions.length === checkedList.length;
+  const checkAll = roomOptions?.length === checkedList.length;
   const indeterminate =
-    checkedList.length > 0 && checkedList.length < plainOptions.length;
+    checkedList.length > 0 && checkedList.length < roomOptions?.length;
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const onSubmit = async (values: any) => {
-    setOpen(false); // Close the modal
+    setOpen(false);
     console.log(values);
     console.log(checkedList);
     console.log(anony);
 
-    // const response = await axios.post(
-    //   `${process.env.REACT_APP_BASE_URL}/room/prayer`, // 템플릿 리터럴 사용
-    //   {
-    //     ...values,
-    //     authorId: memberId,
-    //   }
-    // );
-
-    // return response;
+    const response = await axiosInstance.post(`/room/prayer`, {
+      author: userId,
+      ...values,
+      prayerRoomIds: checkedList,
+      isAnonymous: anony,
+    });
+    return response;
   };
 
-  const onChange = (list: CheckboxValueType[]) => {
-    setCheckedList(list);
+  const onChange = (checkedValues: CheckboxValueType[]) => {
+    setCheckedList(checkedValues);
   };
 
   const onCheckAllChange = (e: CheckboxChangeEvent) => {
-    setCheckedList(e.target.checked ? plainOptions : []);
+    setCheckedList(
+      e.target.checked ? roomOptions.map((option: Iroom) => option.id) : []
+    );
   };
 
   const onChangeAnony = (e: CheckboxChangeEvent) => {
@@ -193,7 +198,7 @@ export default function AddPrayDialog({
             >
               기도할 내용을 입력해 주세요.
             </DialogContentText>
-            <Form.Item name="pray_content">
+            <Form.Item name="content">
               <TextArea
                 placeholder="내용은 공백포함 150자까지 입력 가능합니다."
                 rows={4}
@@ -212,7 +217,7 @@ export default function AddPrayDialog({
             >
               기도제목의 기간을 설정해 주세요. (최대 100일)
             </DialogContentText>
-            <Form.Item name="pray_day">
+            <Form.Item name="expiryDate">
               <InputNumber
                 style={{ backgroundColor: theme.palette.color.gray1 }}
               />
@@ -233,8 +238,10 @@ export default function AddPrayDialog({
               </Checkbox>
 
               <CheckboxGroup
-                // options={roomlist.map((item) => item.name)}
-                options={plainOptions}
+                options={roomOptions?.map((room: Iroom) => ({
+                  label: room.title,
+                  value: room.id,
+                }))}
                 value={checkedList}
                 onChange={onChange}
                 style={{ color: "white" }}
