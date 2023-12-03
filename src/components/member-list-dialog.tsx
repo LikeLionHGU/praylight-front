@@ -120,7 +120,7 @@ export default function MemberListDialog({ roomId }: { roomId: string }) {
         centered
         style={{ width: "500px" }}
         wrapClassName="custom-modal"
-        footer={null}
+        footer={false}
         onCancel={handleClose}
       >
         <DialogTitle>기도방 참여 명단</DialogTitle>
@@ -129,7 +129,6 @@ export default function MemberListDialog({ roomId }: { roomId: string }) {
             <DialogContentText
               style={{
                 color: "white",
-
                 display: "flex",
                 alignContent: "center",
                 fontSize: "16px",
