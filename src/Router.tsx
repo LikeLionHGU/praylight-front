@@ -1,4 +1,4 @@
-import React from "react";
+import { Helmet } from "react-helmet";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Main from "./routes/Main";
 import { useRecoilValue } from "recoil";
@@ -43,6 +43,9 @@ function Router() {
 
   return (
     <BrowserRouter>
+      <Helmet>
+        <title> PRAYLIGHT </title>
+      </Helmet>
       <Switch>
         <Page>
           <Center>
