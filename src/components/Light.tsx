@@ -50,14 +50,19 @@ export default function Light({ isOn }: { isOn: boolean }) {
     setLight(isOn);
   }, [isOn]);
 
-  const { data: ppl } = useQuery(["getLightStatus", roomId], () =>
+  const { data: ppl, refetch } = useQuery(["getLightStatus", roomId], () =>
     getLightStatus(roomId).then((response) => response.data)
   );
 
-  const toggleLight = () => {
+  const toggleLight = async () => {
+    await turnLightOn(roomId, userId);
     setLight(true);
-    turnLightOn(roomId, userId);
+    refetch();
   };
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, light]);
 
   return (
     <>

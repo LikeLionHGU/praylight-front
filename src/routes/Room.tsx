@@ -104,7 +104,6 @@ export default function Room() {
   useEffect(() => {
     if (isPrayUpdated) {
       refetch().then(() => {
-        // refetch가 완료되면 상태를 업데이트합니다.
         setIsPrayUpdated(false);
       });
     }
@@ -139,7 +138,7 @@ export default function Room() {
               <DateDivider> {date} </DateDivider>
               {Array.isArray(dayPrayers) &&
                 dayPrayers.map((pray: Iprayer) => (
-                  <PraiseCard key={pray.pid} pray={pray} />
+                  <PraiseCard key={pray?.pid} pray={pray} />
                 ))}
             </Day>
           ))}

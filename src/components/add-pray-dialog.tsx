@@ -6,9 +6,9 @@ import { Checkbox, Form, InputNumber, Modal, Button } from "antd";
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 import theme from "../theme";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import axiosInstance from "../axios";
-import { UserIdState } from "../store/atom";
+import { UserIdState, isPrayUpdatedState } from "../store/atom";
 import { useQuery } from "react-query";
 import { getMyRoomList } from "../apis/apis";
 import { Iroom } from "../types/type";
@@ -130,6 +130,7 @@ export default function AddPrayDialog({
   const { data: roomOptions } = useQuery(["getMyRoomList"], () =>
     getMyRoomList(userId).then((response) => response.data)
   );
+  const setIsPrayUpdated = useSetRecoilState(isPrayUpdatedState);
 
   const checkAll = roomOptions?.length === checkedList.length;
   const indeterminate =
@@ -142,12 +143,17 @@ export default function AddPrayDialog({
   const onSubmit = async (values: any) => {
     setOpen(false);
 
-    const response = await axiosInstance.post(`/room/prayer`, {
-      author: userId,
-      ...values,
-      prayerRoomIds: checkedList,
-      isAnonymous: anony,
-    });
+    const response = await axiosInstance
+      .post(`/room/prayer`, {
+        author: userId,
+        ...values,
+        prayerRoomIds: checkedList,
+        isAnonymous: anony,
+      })
+      .then((res) => {
+        setIsPrayUpdated(true);
+      });
+
     return response;
   };
 
