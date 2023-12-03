@@ -78,8 +78,6 @@ export default function KickOutDialog({
 
   const handleRemove = () => {
     setOpen(false);
-    console.log("퇴장");
-    console.log(member.name);
   };
 
   return (

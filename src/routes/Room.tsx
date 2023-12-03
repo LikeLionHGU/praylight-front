@@ -97,16 +97,8 @@ export default function Room() {
   const location = useLocation<LocationState>();
   const { roomInfo } = location.state;
 
-  console.log("roomInfo", roomInfo);
-
-  const { data: roomPray, refetch } = useQuery(
-    ["getRoomPray"],
-    () => getRoomPray(roomId, userId).then((response) => response.data),
-    {
-      onSuccess: (data) => {
-        console.log("getRoomPray", data);
-      },
-    }
+  const { data: roomPray, refetch } = useQuery(["getRoomPray"], () =>
+    getRoomPray(roomId, userId).then((response) => response.data)
   );
 
   useEffect(() => {

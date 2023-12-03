@@ -132,12 +132,7 @@ export default function DayPray() {
     () =>
       getDatePrayList(roomId, userId, formattedCurrentDate).then(
         (response) => response.data
-      ),
-    {
-      onSuccess: (data) => {
-        console.log("sgetDatePrayList", data);
-      },
-    }
+      )
   );
 
   useEffect(() => {

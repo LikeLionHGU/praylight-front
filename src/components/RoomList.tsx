@@ -19,14 +19,8 @@ export default function RoomList() {
   const userId = useRecoilValue(UserIdState);
   const [isAdded, setIsAddedState] = useRecoilState(isAddedState);
 
-  const { data: rooms, refetch } = useQuery(
-    ["getMyRoomList"],
-    () => getMyRoomList(userId).then((response) => response.data),
-    {
-      onSuccess: (data) => {
-        console.log("getMyRoomList", data);
-      },
-    }
+  const { data: rooms, refetch } = useQuery(["getMyRoomList"], () =>
+    getMyRoomList(userId).then((response) => response.data)
   );
 
   useEffect(() => {

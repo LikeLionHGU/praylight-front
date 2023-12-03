@@ -78,7 +78,6 @@ export default function AddNewRoomDialog() {
   };
 
   const onSubmit = (values: any) => {
-    console.log(values);
     setOpen(false);
     setNewModalOpen(true);
 

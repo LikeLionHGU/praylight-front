@@ -11,13 +11,12 @@ export default function GoogleButton() {
   const setLogin = useSetRecoilState(IsLoginState);
   // const setUserId = useSetRecoilState(UserIdState);
   // const userId = localStorage.getItem("UserIdState");
-  const [suserId, setUserId] = useRecoilState(UserIdState);
+  const setUserId = useRecoilState(UserIdState);
 
   let history = useHistory();
 
   const onSuccess = async (credentialResponse) => {
     const decodedToken = jwtDecode(credentialResponse.credential);
-    console.log(decodedToken);
 
     try {
       const response = await axiosInstance.post(`/signIn`, {
@@ -29,12 +28,9 @@ export default function GoogleButton() {
       if (response.status === 200) {
         const uesrId = response.data; // memberId 받아오기
 
-        console.log(uesrId);
         setUserId(uesrId);
         setLogin(true);
 
-        console.log("login success");
-        console.log(suserId);
         history.push("/home");
       } else {
         throw new Error("API request failed");
@@ -42,7 +38,6 @@ export default function GoogleButton() {
     } catch (error) {
       console.error("Error during login:", error);
     }
-    console.log(suserId);
   };
 
   return (

@@ -73,7 +73,6 @@ export default function EditPrayDialog({ pray }: { pray: Iprayer }) {
 
   const onSubmit = (values: any) => {
     setOpen(false);
-    console.log(values);
 
     const response = axiosInstance
       .patch(`/prayer/${pray?.pid}/user/${userId}/update/`, {

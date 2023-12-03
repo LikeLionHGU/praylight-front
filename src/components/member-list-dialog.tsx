@@ -56,18 +56,10 @@ export default function MemberListDialog({
     setOpen(false);
   };
 
-  const onSubmit = (values: any) => {
-    console.log(values);
-  };
+  const onSubmit = (values: any) => {};
 
-  const { data: memberList } = useQuery(
-    ["getMemberList", roomId],
-    () => getMemberList(roomId).then((response) => response.data),
-    {
-      onSuccess: (data) => {
-        console.log("getMemberList", data);
-      },
-    }
+  const { data: memberList } = useQuery(["getMemberList", roomId], () =>
+    getMemberList(roomId).then((response) => response.data)
   );
 
   async function copyToClipboard(text: string) {

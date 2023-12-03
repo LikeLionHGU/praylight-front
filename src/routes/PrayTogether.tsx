@@ -92,14 +92,8 @@ export default function PrayTogether() {
   const userId = useRecoilValue(UserIdState);
   const [isPrayUpdated, setIsPrayUpdated] = useRecoilState(isPrayUpdatedState);
 
-  const { data: prayed, refetch } = useQuery(
-    ["getPrayTogether"],
-    () => getPrayTogether(userId).then((response) => response.data),
-    {
-      onSuccess: (data) => {
-        console.log("getPrayTogether", data);
-      },
-    }
+  const { data: prayed, refetch } = useQuery(["getPrayTogether"], () =>
+    getPrayTogether(userId).then((response) => response.data)
   );
 
   useEffect(() => {

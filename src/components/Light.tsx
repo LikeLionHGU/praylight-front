@@ -50,14 +50,8 @@ export default function Light({ isOn }: { isOn: boolean }) {
     setLight(isOn);
   }, [isOn]);
 
-  const { data: ppl } = useQuery(
-    ["getLightStatus", roomId],
-    () => getLightStatus(roomId).then((response) => response.data),
-    {
-      onSuccess: (data) => {
-        console.log("getLightStatus", data);
-      },
-    }
+  const { data: ppl } = useQuery(["getLightStatus", roomId], () =>
+    getLightStatus(roomId).then((response) => response.data)
   );
 
   const toggleLight = () => {

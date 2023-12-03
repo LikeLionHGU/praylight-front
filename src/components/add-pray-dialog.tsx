@@ -127,14 +127,8 @@ export default function AddPrayDialog({
     currentRoom,
   ]);
   const [anony, setAnony] = React.useState(false);
-  const { data: roomOptions } = useQuery(
-    ["getMyRoomList"],
-    () => getMyRoomList(userId).then((response) => response.data),
-    {
-      onSuccess: (data) => {
-        console.log("getMyRoomList", data);
-      },
-    }
+  const { data: roomOptions } = useQuery(["getMyRoomList"], () =>
+    getMyRoomList(userId).then((response) => response.data)
   );
 
   const checkAll = roomOptions?.length === checkedList.length;
@@ -147,9 +141,6 @@ export default function AddPrayDialog({
 
   const onSubmit = async (values: any) => {
     setOpen(false);
-    console.log(values);
-    console.log(checkedList);
-    console.log(anony);
 
     const response = await axiosInstance.post(`/room/prayer`, {
       author: userId,
@@ -171,7 +162,6 @@ export default function AddPrayDialog({
   };
 
   const onChangeAnony = (e: CheckboxChangeEvent) => {
-    console.log(`checked = ${e.target.checked}`);
     setAnony(e.target.checked);
   };
 

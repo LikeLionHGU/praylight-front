@@ -59,7 +59,6 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
   };
 
   const onSubmit = (values: any) => {
-    console.log(values);
     setOpen(false);
 
     const response = axiosInstance

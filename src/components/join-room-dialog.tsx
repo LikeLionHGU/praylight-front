@@ -82,8 +82,6 @@ export default function JoinRoomDialog() {
   };
 
   const onSubmit = (values: any) => {
-    console.log(values);
-
     const response = axiosInstance
       .post(`/rooms/user/${userId}/code/${values.code}`)
       .then((response) => {
@@ -100,7 +98,6 @@ export default function JoinRoomDialog() {
 
   const handleNewRoom = () => {
     setNewModalOpen(false);
-    console.log(room);
   };
 
   return (

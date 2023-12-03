@@ -59,10 +59,7 @@ export default function CalendarDialog({
   };
 
   const onSubmit = (values: any) => {
-    console.log(date);
-    console.log(roomInfo);
     history.push(`/room/${roomId}/${date}`, { roomInfo: roomInfo });
-    console.log(values);
     setOpen(false);
   };
 

@@ -1317,7 +1317,6 @@ export default function StarCalender({ roomId }: { roomId: string }) {
   const currentDate = new Date();
   const currentMonthIndex = currentDate.getMonth(); // 0(1월) ~ 11(12월)의 값을 반환합니다.
   const [currentSet, setCurrentSet] = useState(currentMonthIndex - 3); // 현재 표시되는 월의 시작 인덱스
-  console.log(currentSet);
 
   const handleNext = () => {
     if (currentSet + 4 < star.length) {

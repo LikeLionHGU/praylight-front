@@ -90,14 +90,8 @@ export default function MyPage() {
   const userId = useRecoilValue(UserIdState);
   const [isPrayUpdated, setIsPrayUpdated] = useRecoilState(isPrayUpdatedState);
 
-  const { data: myPray, refetch } = useQuery(
-    ["getMyPray"],
-    () => getMyPray(userId).then((response) => response.data),
-    {
-      onSuccess: (data) => {
-        console.log("getMyPray", data);
-      },
-    }
+  const { data: myPray, refetch } = useQuery(["getMyPray"], () =>
+    getMyPray(userId).then((response) => response.data)
   );
 
   useEffect(() => {
