@@ -122,8 +122,8 @@ export default function AddNewRoomDialog() {
                 id="cancel-button"
                 onClick={() => setOpen(false)}
                 style={{
-                  marginRight: "10px",
                   fontWeight: "bold",
+                  fontSize: "16px",
                   backgroundColor: theme.palette.color.gray6,
                   border: "none",
                   color: "white",
@@ -137,6 +137,7 @@ export default function AddNewRoomDialog() {
                 style={{
                   color: theme.palette.color.yellow,
                   fontWeight: "bold",
+                  fontSize: "16px",
                   backgroundColor: theme.palette.color.gray6,
                   border: "none",
                 }}
