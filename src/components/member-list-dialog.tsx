@@ -8,58 +8,11 @@ import theme from "../theme";
 import { IoPeopleCircleSharp } from "react-icons/io5";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import KickOutDialog from "./kickOut-dialog";
-
-const roomName = "한동대학교 기도방";
+import { useQuery } from "react-query";
+import { getMemberList } from "../apis/roomApis";
+import { Iuser } from "../types/type";
 
 const roomCode = "123456";
-
-const memberList: ImemberList[] = [
-  {
-    id: 1,
-    name: "김태현",
-  },
-  {
-    id: 2,
-    name: "한예슬",
-  },
-  {
-    id: 3,
-    name: "조은별",
-  },
-  {
-    id: 4,
-    name: "박진호",
-  },
-  {
-    id: 5,
-    name: "이혜진",
-  },
-  {
-    id: 6,
-    name: "김태현",
-  },
-  {
-    id: 7,
-    name: "한예슬",
-  },
-  {
-    id: 8,
-    name: "조은별",
-  },
-  {
-    id: 9,
-    name: "박진호",
-  },
-  {
-    id: 10,
-    name: "이혜진",
-  },
-];
-
-interface ImemberList {
-  id: number;
-  name: string;
-}
 
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
@@ -86,7 +39,13 @@ const Columns = styled.div`
   font-size: 16px;
 `;
 
-export default function MemberListDialog({ roomId }: { roomId: string }) {
+export default function MemberListDialog({
+  roomId,
+  title,
+}: {
+  roomId: string;
+  title: string;
+}) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -101,6 +60,16 @@ export default function MemberListDialog({ roomId }: { roomId: string }) {
     console.log(values);
   };
 
+  const { data: memberList } = useQuery(
+    ["getMemberList", roomId],
+    () => getMemberList(roomId).then((response) => response.data),
+    {
+      onSuccess: (data) => {
+        console.log("getMemberList", data);
+      },
+    }
+  );
+
   async function copyToClipboard(text: string) {
     try {
       await navigator.clipboard.writeText(text);
@@ -112,8 +81,6 @@ export default function MemberListDialog({ roomId }: { roomId: string }) {
   return (
     <React.Fragment>
       <GlobalStyle />
-      {/* <Button variant="outlined" onClick={handleClickOpen}> */}
-      {/* <AddPraise onClick={handleClickOpen}>새 기도제목 작성</AddPraise> */}
       <IoPeopleCircleSharp onClick={handleClickOpen} size={"30px"} />
       <Modal
         open={open}
@@ -154,10 +121,10 @@ export default function MemberListDialog({ roomId }: { roomId: string }) {
             </DialogContentText>
 
             <Columns>
-              {memberList.map((member) => (
+              {memberList?.map((member: Iuser) => (
                 <KickOutDialog
                   member={member}
-                  roomName={roomName}
+                  title={title}
                   onClose={handleClose}
                 />
               ))}
