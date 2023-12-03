@@ -6,18 +6,6 @@ const { persistAtom } = recoilPersist({
   storage: localStorage,
 });
 
-export const UserId = atom({
-  key: "UserId",
-  default: "",
-  effects_UNSTABLE: [persistAtom],
-});
-
-// export const UserName = atom({
-//   key: 'UserName',
-//   default: '',
-//   effects_UNSTABLE: [persistAtom],
-// });
-
 export const IsLoginState = atom({
   key: "IsLoginState",
   // default: false,
@@ -25,8 +13,8 @@ export const IsLoginState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const MemberIdState = atom({
-  key: "MemberIdState",
+export const UserIdState = atom({
+  key: "UserIdState",
   default: 1,
   effects_UNSTABLE: [persistAtom],
 });
