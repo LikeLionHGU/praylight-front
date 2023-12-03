@@ -1,9 +1,8 @@
 import axios from "axios";
+import axiosInstance from "../axios";
 
-export const getMyRoomList = async (roomId: string) => {
-  const response = await axios.get(
-    `${process.env.REACT_APP_BASE_URL}/api/room/${roomId}`
-  );
+export const getMyRoomList = async (userId: string) => {
+  const response = await axiosInstance.get(`/rooms/user/${userId}`);
   return response;
 };
 
