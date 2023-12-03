@@ -30,8 +30,13 @@ export default function RoomList() {
     <>
       <Rooms>
         {rooms?.map((room: Iroom) => (
-          <Link to={`/room/${room.rId}`}>
-            <RoomCard key={room?.rId} room={room} />
+          <Link
+            to={{
+              pathname: `/room/${room?.id}`,
+              state: { roomInfo: room },
+            }}
+          >
+            <RoomCard key={room?.id} room={room} />
           </Link>
         ))}
       </Rooms>
