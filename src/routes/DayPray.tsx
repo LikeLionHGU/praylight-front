@@ -65,6 +65,10 @@ interface RouteParams {
   roomId: string;
 }
 
+const HeaderBlank = styled.div`
+  height: 60px;
+`;
+
 const Container = styled.div`
   width: 100%;
   background-color: black;
@@ -118,12 +122,13 @@ const DateDivider = styled.div`
   position: relative;
   padding-left: 10%;
   color: ${theme.palette.color.gray3};
+  font-size: 12px;
 
   &:before,
   &:after {
     content: "";
     position: absolute;
-    top: 50%;
+    top: 40%;
     height: 1px;
     background-color: ${theme.palette.color.gray3};
   }
@@ -134,7 +139,7 @@ const DateDivider = styled.div`
   }
 
   &:after {
-    left: calc(30% + 10px);
+    left: calc(25% + 10px);
     right: 0;
   }
 `;
@@ -185,6 +190,7 @@ export default function DayPray() {
   return (
     <>
       <Header />
+      <HeaderBlank />
       <Container>
         <Top>
           <div>

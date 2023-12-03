@@ -4,6 +4,10 @@ import RoomList from "../components/RoomList";
 import JoinRoomDialog from "../components/join-room-dialog";
 import AddNewRoomDialog from "../components/add-newroom-dialog";
 
+const HeaderBlank = styled.div`
+  height: 60px;
+`;
+
 const Title = styled.div`
   font-size: 20px;
   font-weight: bold;
@@ -28,6 +32,7 @@ export default function Main() {
   return (
     <>
       <Header />
+      <HeaderBlank />
       <Container>
         <Title> 나의 기도방 </Title>
         <Btns>

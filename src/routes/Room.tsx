@@ -7,6 +7,7 @@ import Light from "../components/Light";
 import AddPrayDialog from "../components/add-pray-dialog";
 import MemberListDialog from "../components/member-list-dialog";
 import CalendarDialog from "../components/calendar-dialog";
+import { useQuery } from "react-query";
 
 const roomInfo = {
   roomName: "한동대학교 기도방",
@@ -125,6 +126,10 @@ const Container = styled.div`
   /* justify-content: space-between; */
 `;
 
+const HeaderBlank = styled.div`
+  height: 60px;
+`;
+
 const Top = styled.div`
   display: flex;
   gap: 20px;
@@ -199,20 +204,20 @@ const Day = styled.div`
 export default function Room() {
   const { roomId } = useParams<RouteParams>();
 
-  //   const { isLoading, data: roomInfo } = useQuery(
-  //     ['OneQuestion', getRoomInfo],
-  //     () => getRoomInfo(roomId).then(response => response.data),
-  //     {
-  //       onSuccess: data => {
-  //         console.log('GetAllCategory', data);
-  //       },
-  //       refetchInterval: 500,
+  // const { data: rooms } = useQuery(
+  //   ["getMyRoomList"],
+  //   () => getRoomInfo().then((response) => response.data),
+  //   {
+  //     onSuccess: (data) => {
+  //       console.log("getMyRoomList", data);
   //     },
-  //   );
+  //   }
+  // );
 
   return (
     <>
       <Header />
+      <HeaderBlank />
       <Container>
         <Top>
           <div>
