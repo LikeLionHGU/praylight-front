@@ -6,8 +6,9 @@ import styled, { createGlobalStyle } from "styled-components";
 import { Form, Input, Modal, Button } from "antd";
 import theme from "../theme";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-
-const roomCode = "123456";
+import axiosInstance from "../axios";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserIdState, isAddedState } from "../store/atom";
 
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
@@ -68,6 +69,9 @@ const Btn = styled.div`
 export default function AddNewRoomDialog() {
   const [open, setOpen] = React.useState(false);
   const [newModalOpen, setNewModalOpen] = React.useState(false);
+  const userId = useRecoilValue(UserIdState);
+  const [roomCode, setRoomCode] = React.useState("");
+  const setIsAdded = useSetRecoilState(isAddedState);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -77,6 +81,18 @@ export default function AddNewRoomDialog() {
     console.log(values);
     setOpen(false);
     setNewModalOpen(true);
+
+    const response = axiosInstance
+      .post(`/rooms/create`, {
+        author: userId,
+        ...values,
+      })
+      .then((res) => {
+        setRoomCode(res.data.code);
+        setIsAdded(true);
+      });
+
+    return response;
   };
 
   async function copyToClipboard(text: string) {
@@ -106,7 +122,7 @@ export default function AddNewRoomDialog() {
           <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
             새 기도방의 이름을 입력하세요.
           </DialogContentText>
-          <Form.Item name="pray_content">
+          <Form.Item name="title">
             <Input
               placeholder="기도방 이름을 입력하세요."
               style={{
