@@ -65,6 +65,7 @@ export default function MemberListDialog({
   async function copyToClipboard(text: string) {
     try {
       await navigator.clipboard.writeText(text);
+      alert("복사되었습니다.");
     } catch (err) {
       console.error("Error copying text: ", err);
     }
