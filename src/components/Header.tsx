@@ -13,6 +13,9 @@ const Container = styled.div`
   padding: 0 20px;
   border-bottom: 1px solid #e5e5e5;
   position: fixed;
+  left: 0; /* 추가 */
+  right: 0; /* 추가 */
+  box-sizing: border-box;
 `;
 
 const Img = styled.img`
@@ -21,13 +24,11 @@ const Img = styled.img`
 
 export default function Header() {
   return (
-    <>
-      <Container>
-        <Link to="/home">
-          <Img src={logo} />
-        </Link>
-        <MenuDrawer />
-      </Container>
-    </>
+    <Container>
+      <Link to="/home">
+        <Img src={logo} />
+      </Link>
+      <MenuDrawer />
+    </Container>
   );
 }
