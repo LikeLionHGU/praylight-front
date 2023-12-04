@@ -116,8 +116,8 @@ export default function MemberListDialog({
               {memberList?.map((member: Iuser) => (
                 <KickOutDialog
                   member={member}
-                  title={title}
-                  onClose={handleClose}
+                  // title={title}
+                  // onClose={handleClose}
                 />
               ))}
             </Columns>

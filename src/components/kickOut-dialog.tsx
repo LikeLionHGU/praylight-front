@@ -1,12 +1,12 @@
 import * as React from "react";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+// import DialogContent from "@mui/material/DialogContent";
+// import DialogContentText from "@mui/material/DialogContentText";
+// import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
-import { Modal } from "antd";
+// import { Modal } from "antd";
 
 import theme from "../theme";
-import exitIcon from "../imgs/exitIcon.png";
+// import exitIcon from "../imgs/exitIcon.png";
 
 interface ImemberList {
   id: number;
@@ -54,40 +54,40 @@ const Member = styled.div`
   padding: 5px 10px;
 `;
 
-const Icon = styled.img`
-  width: 16px;
-`;
+// const Icon = styled.img`
+//   width: 16px;
+// `;
 
 interface IKickOutDialogProps {
   member: ImemberList;
-  title: string;
-  onClose: () => void;
+  // title: string;
+  // onClose: () => void;
 }
 
 export default function KickOutDialog({
   member,
-  title,
-  onClose,
-}: IKickOutDialogProps) {
-  const [open, setOpen] = React.useState(false);
+}: // title,
+// onClose,
+IKickOutDialogProps) {
+  // const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-    onClose();
-  };
+  // const handleClickOpen = () => {
+  // setOpen(true);
+  // onClose();
+  // };
 
-  const handleRemove = () => {
-    setOpen(false);
-  };
+  // const handleRemove = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <React.Fragment>
       <GlobalStyle />
-      <Member onClick={handleClickOpen}>
+      <Member>
         {member.name}
-        <Icon src={exitIcon} />
+        {/* <Icon src={exitIcon} /> */}
       </Member>
-      <Modal
+      {/* <Modal
         open={open}
         centered
         style={{ width: "500px" }}
@@ -111,7 +111,7 @@ export default function KickOutDialog({
             {member.name}을 {title}에서 퇴장시키시겠습니까?
           </DialogContentText>
         </DialogContent>
-      </Modal>
+      </Modal> */}
     </React.Fragment>
   );
 }
