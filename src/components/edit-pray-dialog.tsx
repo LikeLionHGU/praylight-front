@@ -98,6 +98,7 @@ export default function EditPrayDialog({ pray }: { pray: Iprayer }) {
         centered
         style={{ width: "500px" }}
         footer={false}
+        onCancel={() => setOpen(false)}
         wrapClassName="custom-modal"
       >
         <DialogTitle>기도제목 수정</DialogTitle>

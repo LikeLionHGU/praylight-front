@@ -112,6 +112,7 @@ export default function AddNewRoomDialog() {
         centered
         style={{ width: "500px" }}
         footer={false}
+        onCancel={() => setOpen(false)}
         wrapClassName="custom-modal"
       >
         <DialogTitle sx={{ padding: "10px 0px" }}>

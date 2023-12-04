@@ -127,6 +127,7 @@ export default function AddPrayDialog({
     currentRoom,
   ]);
   const [anony, setAnony] = React.useState(false);
+
   const { data: roomOptions } = useQuery(["getMyRoomList"], () =>
     getMyRoomList(userId).then((response) => response.data)
   );
@@ -180,6 +181,7 @@ export default function AddPrayDialog({
         centered
         style={{ width: "500px" }}
         footer={false}
+        onCancel={() => setOpen(false)}
         wrapClassName="custom-modal"
       >
         <Title>새 기도제목 작성</Title>

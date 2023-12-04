@@ -82,6 +82,7 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
         style={{ width: "500px" }}
         wrapClassName="custom-modal"
         footer={false}
+        onCancel={() => setOpen(false)}
       >
         <DialogTitle>기도제목 삭제</DialogTitle>
         <DialogContent>
