@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import MenuDrawer from "./menu-drawer";
 
 const Container = styled.div`
-  width: 100%;
+  width: 100vw;
+  max-width: 400px;
   height: 60px;
   background-color: black;
   display: flex;
@@ -13,8 +14,6 @@ const Container = styled.div`
   padding: 0 20px;
   border-bottom: 1px solid #e5e5e5;
   position: fixed;
-  left: 0; /* 추가 */
-  right: 0; /* 추가 */
   box-sizing: border-box;
 `;
 

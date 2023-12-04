@@ -41,7 +41,7 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
-  background-color: gray;
+  background-color: black;
   color: white;
 }
 menu, ol, ul {
