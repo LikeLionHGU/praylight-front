@@ -152,8 +152,6 @@ export default function AddPrayDialog({
   };
 
   const onSubmit = async (values: any) => {
-    setOpen(false);
-
     const response = await axiosInstance
       .post(`/room/prayer`, {
         author: userId,
@@ -166,8 +164,8 @@ export default function AddPrayDialog({
         form.resetFields();
         setCheckedList([]);
         setAnony(false);
+        setOpen(false);
       });
-
     return response;
   };
 

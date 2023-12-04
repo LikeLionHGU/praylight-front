@@ -5,8 +5,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
 import { Form, Input, Modal, Button } from "antd";
 import theme from "../theme";
-import { useRecoilValue } from "recoil";
-import { UserIdState } from "../store/atom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { UserIdState, isAddedState } from "../store/atom";
 import axiosInstance from "../axios";
 
 const GlobalStyle = createGlobalStyle`
@@ -76,6 +76,7 @@ export default function JoinRoomDialog() {
   const [newModalOpen, setNewModalOpen] = React.useState(false);
   const [find, setFind] = React.useState(true);
   const [room, setRoom] = React.useState("");
+  const setIsAdded = useSetRecoilState(isAddedState);
   const [form] = Form.useForm();
 
   const handleClickOpen = () => {
@@ -94,6 +95,7 @@ export default function JoinRoomDialog() {
         setOpen(false);
         setNewModalOpen(true);
         setRoom(response.data.title);
+        setIsAdded(true);
       })
       .catch((error) => {
         setFind(false);
