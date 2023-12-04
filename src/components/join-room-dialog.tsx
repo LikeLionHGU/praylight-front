@@ -76,9 +76,15 @@ export default function JoinRoomDialog() {
   const [newModalOpen, setNewModalOpen] = React.useState(false);
   const [find, setFind] = React.useState(true);
   const [room, setRoom] = React.useState("");
+  const [form] = Form.useForm();
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleClose = () => {
+    form.resetFields();
+    setOpen(false);
   };
 
   const onSubmit = (values: any) => {
@@ -109,13 +115,13 @@ export default function JoinRoomDialog() {
         centered
         style={{ width: "500px" }}
         footer={false}
-        onCancel={() => setOpen(false)}
+        onCancel={handleClose}
         wrapClassName="custom-modal"
       >
         <DialogTitle sx={{ padding: "10px 0px" }}>
           기도방 코드를 입력하세요.
         </DialogTitle>
-        <Form name="productUpload" onFinish={onSubmit}>
+        <Form form={form} name="productUpload" onFinish={onSubmit}>
           <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
             참여하실 기도방의 코드를 입력해주세요.
           </DialogContentText>
@@ -142,7 +148,7 @@ export default function JoinRoomDialog() {
             >
               <Button
                 id="cancel-button"
-                onClick={() => setOpen(false)}
+                onClick={handleClose}
                 style={{
                   marginRight: "10px",
                   fontWeight: "bold",

@@ -12,6 +12,7 @@ import { UserIdState, isPrayUpdatedState } from "../store/atom";
 import { useQuery } from "react-query";
 import { getMyRoomList } from "../apis/apis";
 import { Iroom } from "../types/type";
+import { set } from "date-fns";
 
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
@@ -112,6 +113,8 @@ const Columns = styled.div`
   padding: 10px 10px;
   background-color: ${theme.palette.color.gray5};
   border-radius: 5px;
+  height: 200px;
+  overflow-y: scroll;
 `;
 
 const CheckboxGroup = Checkbox.Group;
@@ -136,9 +139,17 @@ export default function AddPrayDialog({
   const checkAll = roomOptions?.length === checkedList.length;
   const indeterminate =
     checkedList.length > 0 && checkedList.length < roomOptions?.length;
+  const [form] = Form.useForm();
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const handleClose = () => {
+    form.resetFields();
+    setCheckedList([]);
+    setAnony(false);
+    setOpen(false);
   };
 
   const onSubmit = async (values: any) => {
@@ -153,6 +164,9 @@ export default function AddPrayDialog({
       })
       .then((res) => {
         setIsPrayUpdated(true);
+        form.resetFields();
+        setCheckedList([]);
+        setAnony(false);
       });
 
     return response;
@@ -181,12 +195,12 @@ export default function AddPrayDialog({
         centered
         style={{ width: "500px" }}
         footer={false}
-        onCancel={() => setOpen(false)}
+        onCancel={handleClose}
         wrapClassName="custom-modal"
       >
         <Title>새 기도제목 작성</Title>
         <div style={{ padding: "none !important" }}>
-          <Form name="productUpload" onFinish={onSubmit}>
+          <Form form={form} name="productUpload" onFinish={onSubmit}>
             <DialogContentText
               style={{
                 color: theme.palette.color.gray2,
@@ -247,14 +261,14 @@ export default function AddPrayDialog({
             </Columns>
             <div style={{ margin: "20px" }} />
             <Checkbox onChange={onChangeAnony} style={{ color: "white" }}>
-              익명
+              익명으로 올리기
             </Checkbox>
             <div style={{ margin: "20px" }} />
             <Form.Item>
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button
                   id="cancel-button"
-                  onClick={() => setOpen(false)}
+                  onClick={handleClose}
                   style={{
                     marginRight: "10px",
                     fontWeight: "bold",

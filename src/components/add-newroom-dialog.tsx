@@ -72,13 +72,18 @@ export default function AddNewRoomDialog() {
   const userId = useRecoilValue(UserIdState);
   const [roomCode, setRoomCode] = React.useState("");
   const setIsAdded = useSetRecoilState(isAddedState);
+  const [form] = Form.useForm();
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const onSubmit = (values: any) => {
+  const handleClose = () => {
+    form.resetFields();
     setOpen(false);
+  };
+
+  const onSubmit = (values: any) => {
     setNewModalOpen(true);
 
     const response = axiosInstance
@@ -89,6 +94,9 @@ export default function AddNewRoomDialog() {
       .then((res) => {
         setRoomCode(res.data.code);
         setIsAdded(true);
+        setOpen(false);
+        form.resetFields();
+        console.log(res);
       });
 
     return response;
@@ -112,13 +120,13 @@ export default function AddNewRoomDialog() {
         centered
         style={{ width: "500px" }}
         footer={false}
-        onCancel={() => setOpen(false)}
+        onCancel={handleClose}
         wrapClassName="custom-modal"
       >
         <DialogTitle sx={{ padding: "10px 0px" }}>
           새 기도방 생성하기
         </DialogTitle>
-        <Form name="productUpload" onFinish={onSubmit}>
+        <Form form={form} name="addNewRoom" onFinish={onSubmit}>
           <DialogContentText style={{ color: "white", padding: "5px 0px" }}>
             새 기도방의 이름을 입력하세요.
           </DialogContentText>
@@ -136,7 +144,7 @@ export default function AddNewRoomDialog() {
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
                 id="cancel-button"
-                onClick={() => setOpen(false)}
+                onClick={handleClose}
                 style={{
                   fontWeight: "bold",
                   fontSize: "16px",
