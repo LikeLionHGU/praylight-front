@@ -19,6 +19,12 @@ export const UserIdState = atom({
   effects_UNSTABLE: [persistAtom],
 });
 
+export const UserNameState = atom({
+  key: "UserNameState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const isPrayUpdatedState = atom({
   key: "isPrayUpdatedState",
   default: false,
