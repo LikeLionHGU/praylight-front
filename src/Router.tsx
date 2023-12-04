@@ -20,8 +20,8 @@ const Page = styled.div`
 `;
 
 const Center = styled.div`
-  max-width: 20vw;
-  min-width: 390px;
+  max-width: 100vw;
+  min-width: 360px;
   background-color: black;
   height: calc(var(--vh, 1vh) * 100);
   min-height: auto;
