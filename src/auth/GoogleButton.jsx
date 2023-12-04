@@ -2,12 +2,13 @@ import { GoogleLogin } from "@react-oauth/google";
 import jwtDecode from "jwt-decode";
 import { useHistory } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { IsLoginState, UserIdState } from "../store/atom";
+import { IsLoginState, UserIdState, UserNameState } from "../store/atom";
 import axiosInstance from "../axios";
 
 export default function GoogleButton() {
   const setLogin = useSetRecoilState(IsLoginState);
   const setUserId = useSetRecoilState(UserIdState);
+  const setUserName = useSetRecoilState(UserNameState);
 
   let history = useHistory();
 
@@ -25,6 +26,7 @@ export default function GoogleButton() {
         const uesrId = response.data; // memberId 받아오기
 
         setUserId(uesrId);
+        setUserName(decodedToken.name);
         setLogin(true);
 
         history.push("/home");

@@ -8,6 +8,8 @@ import styled from "styled-components";
 import theme from "../theme";
 import { useHistory } from "react-router-dom";
 import Logo from "../imgs/logo.svg";
+import { UserNameState } from "../store/atom";
+import { useRecoilValue } from "recoil";
 
 const Icon = styled.img`
   width: 20px;
@@ -24,8 +26,6 @@ const Content = styled.div`
 const Container = styled.div`
   width: 100%;
 `;
-
-const name = "김믿음";
 
 const Welcome = styled.div`
   font-size: 16px;
@@ -62,6 +62,7 @@ const Img = styled.img`
 
 export default function MenuDrawer() {
   const history = useHistory();
+  const userName = useRecoilValue(UserNameState);
   const [isOpen, setIsOpen] = React.useState(false);
 
   const toggleDrawer = (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -113,7 +114,7 @@ export default function MenuDrawer() {
             <Container style={{ height: "20px" }} />
             <Welcome> 기도의 자리에 오신</Welcome>
             <Welcome>
-              <Name>{name}</Name> 님을 환영하고 축복합니다.
+              <Name>{userName}</Name> 님을 환영하고 축복합니다.
             </Welcome>
             <Container style={{ height: "40px" }} />
             <Btn onClick={movetoRoomlist}>나의 기도방</Btn>
