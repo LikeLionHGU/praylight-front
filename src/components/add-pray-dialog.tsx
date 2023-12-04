@@ -12,7 +12,6 @@ import { UserIdState, isPrayUpdatedState } from "../store/atom";
 import { useQuery } from "react-query";
 import { getMyRoomList } from "../apis/apis";
 import { Iroom } from "../types/type";
-import { set } from "date-fns";
 
 const GlobalStyle = createGlobalStyle`
   .custom-modal .ant-modal-content {
