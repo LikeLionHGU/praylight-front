@@ -125,6 +125,10 @@ export default function DayPray() {
     currentDate.getMonth() + 1
   }-${currentDate.getDate()}`;
 
+  useEffect(() => {
+    setCurrentDate(new Date(date));
+  }, [date]);
+
   const formattedCurrentDate = currentDate.toISOString();
 
   const { data: roomPray, refetch } = useQuery(
@@ -135,10 +139,11 @@ export default function DayPray() {
       )
   );
 
+  console.log(roomPray);
+
   useEffect(() => {
-    if (isPrayUpdated || currentDate) {
+    if (isPrayUpdated) {
       refetch().then(() => {
-        // refetch가 완료되면 상태를 업데이트합니다.
         setIsPrayUpdated(false);
       });
     }
