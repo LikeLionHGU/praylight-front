@@ -96,7 +96,6 @@ export default function AddNewRoomDialog() {
         setIsAdded(true);
         setOpen(false);
         form.resetFields();
-        console.log(res);
       });
 
     return response;
