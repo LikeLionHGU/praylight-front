@@ -1,7 +1,5 @@
 import * as React from "react";
-import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
 import { Form, Modal } from "antd";
 import theme from "../theme";
@@ -22,6 +20,12 @@ const GlobalStyle = createGlobalStyle`
     background-color: black; // 확인(submit) 버튼의 배경색을 회색으로 설정
     border-color: white; // 확인(submit) 버튼의 테두리 색상을 회색으로 설정
   }
+`;
+
+const Title = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
 `;
 
 const Columns = styled.div`
@@ -83,8 +87,8 @@ export default function MemberListDialog({
         footer={false}
         onCancel={handleClose}
       >
-        <DialogTitle>기도방 참여 명단</DialogTitle>
-        <DialogContent>
+        <Title>기도방 참여 명단</Title>
+        <div style={{ padding: "none !important" }}>
           <Form name="productUpload" onFinish={onSubmit}>
             <DialogContentText
               style={{
@@ -123,7 +127,7 @@ export default function MemberListDialog({
               ))}
             </Columns>
           </Form>
-        </DialogContent>
+        </div>
       </Modal>
     </React.Fragment>
   );

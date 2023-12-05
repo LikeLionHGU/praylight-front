@@ -1,11 +1,8 @@
 import * as React from "react";
-import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
 import TextArea from "antd/es/input/TextArea";
 import { Form, InputNumber, Modal, Button } from "antd";
-
 import theme from "../theme";
 import editIcon from "../imgs/editIcon.png";
 import { Iprayer } from "../types/type";
@@ -57,6 +54,11 @@ const GlobalStyle = createGlobalStyle`
     box-shadow: none !important;
   }
 `;
+const Title = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+`;
 
 const Icon = styled.img`
   width: 15px;
@@ -101,8 +103,8 @@ export default function EditPrayDialog({ pray }: { pray: Iprayer }) {
         onCancel={() => setOpen(false)}
         wrapClassName="custom-modal"
       >
-        <DialogTitle>기도제목 수정</DialogTitle>
-        <DialogContent>
+        <Title>기도제목 수정</Title>
+        <div style={{ padding: "none !important" }}>
           <Form
             name="productUpload"
             onFinish={onSubmit}
@@ -173,7 +175,7 @@ export default function EditPrayDialog({ pray }: { pray: Iprayer }) {
               </div>
             </Form.Item>
           </Form>
-        </DialogContent>
+        </div>
       </Modal>
     </React.Fragment>
   );

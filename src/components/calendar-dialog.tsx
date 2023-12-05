@@ -1,5 +1,4 @@
 import * as React from "react";
-import DialogContent from "@mui/material/DialogContent";
 import { createGlobalStyle } from "styled-components";
 import { Modal } from "antd";
 import theme from "../theme";
@@ -77,7 +76,7 @@ export default function CalendarDialog({
         okText="찾기"
         cancelText="취소"
       >
-        <DialogContent>
+        <div style={{ padding: "none !important" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateCalendar
               onChange={(newDate: Dayjs | null) => {
@@ -99,7 +98,7 @@ export default function CalendarDialog({
               }}
             />
           </LocalizationProvider>
-        </DialogContent>
+        </div>
       </Modal>
     </React.Fragment>
   );

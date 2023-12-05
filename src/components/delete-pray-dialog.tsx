@@ -1,7 +1,5 @@
 import * as React from "react";
-import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import styled, { createGlobalStyle } from "styled-components";
 import { Modal, Button } from "antd";
 
@@ -45,6 +43,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Title = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+`;
+
 const Icon = styled.img`
   width: 16px;
 `;
@@ -84,8 +88,8 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
         footer={false}
         onCancel={() => setOpen(false)}
       >
-        <DialogTitle>기도제목 삭제</DialogTitle>
-        <DialogContent>
+        <Title>기도제목 삭제</Title>
+        <div style={{ padding: "none !important" }}>
           <DialogContentText
             style={{
               color: "white",
@@ -127,7 +131,7 @@ export default function DeletePrayDialog({ prayId }: { prayId: number }) {
               삭제
             </Button>
           </div>
-        </DialogContent>
+        </div>
       </Modal>
     </React.Fragment>
   );
