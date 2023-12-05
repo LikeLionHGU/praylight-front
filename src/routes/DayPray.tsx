@@ -14,7 +14,7 @@ import { getDatePrayList } from "../apis/roomApis";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { UserIdState, isPrayUpdatedState } from "../store/atom";
 import PraiseCard from "../components/PraiseCard";
-
+import moment from "moment";
 interface RouteParams {
   roomId: string;
   date: string;
@@ -129,7 +129,11 @@ export default function DayPray() {
     setCurrentDate(new Date(date));
   }, [date]);
 
-  const formattedCurrentDate = currentDate.toISOString();
+  // const formattedCurrentDate = currentDate.toISOString();
+  const formattedCurrentDate = moment(currentDate).format();
+
+  console.log(formattedCurrentDate);
+  console.log(currentDate);
 
   const { data: roomPray, refetch } = useQuery(
     ["getDatePrayList", formattedCurrentDate],
